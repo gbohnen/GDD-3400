@@ -17,10 +17,10 @@ public class GridCell: MonoBehaviour {
                 gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
                 break;
             case CellState.Occupied:
-                gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+                gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
                 break;
             case CellState.Targeted:
-                gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
                 break;
         }
     }
