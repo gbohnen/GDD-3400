@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    float velocity;
+
+
+
+    Vector3 Target
+    { get; set; }
+
+    public void Update()
+    {
+
+    }
 }
