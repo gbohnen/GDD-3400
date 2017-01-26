@@ -25,6 +25,20 @@ public class GameManager : MonoBehaviour {
         Initialize();
     }
 
+    void Update()
+    {
+        foreach (Agent agent in agents)
+        {
+            if (!agent.Moving)
+            {
+                // get random neighbor of cell under this agent
+                GridCell rand = graph[(int)agent.gameObject.transform.position.x, (int)agent.gameObject.transform.position.z].Neighbors[Random.Range(0, graph[(int)agent.gameObject.transform.position.x, (int)agent.gameObject.transform.position.z].Neighbors.Count)];
+                agent.NavigateTo((int)rand.Position.x, (int)rand.Position.y);
+                graph[(int)rand.Position.x, (int)rand.Position.y].State = CellState.Targeted;
+            }
+        }
+    }
+
      void Initialize()
     {
         // initialize collections
@@ -38,7 +52,7 @@ public class GameManager : MonoBehaviour {
                 graph[i, j] = Instantiate(tilePrefab).GetComponent<GridCell>();
 
                 graph[i, j].gameObject.transform.position = new Vector3(i, 0, j);
-                graph[i, j].Initialize();
+                graph[i, j].Initialize(i, j);
             }
         }
 
@@ -126,7 +140,7 @@ public class GameManager : MonoBehaviour {
 
 
                 // print  data
-                Debug.Log(i + " " + j + " " + graph[i,j].Neighbors.Count);
+                //Debug.Log(i + " " + j + " " + graph[i,j].Neighbors.Count);
             }
         }
     }
@@ -154,7 +168,6 @@ public class GameManager : MonoBehaviour {
 
             // place the agent
             agent.gameObject.transform.position = new Vector3(i, agentHeight, j);
-            graph[i, j].State = CellState.Occupied;
         }
     }
 }
