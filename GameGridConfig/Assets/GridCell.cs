@@ -22,7 +22,6 @@ public class GridCell: MonoBehaviour {
         if (occupationTimer > 0f)
         {
             occupationTimer -= Time.deltaTime;
-            Debug.Log(occupationTimer);
         }
         else if (state != CellState.Targeted)
         {

@@ -11,28 +11,31 @@ public class Agent : MonoBehaviour {
     #endregion
 
     #region Properties
-
-    Vector3 Target
-    { get; set; }
-
+    
     public bool Moving
     { get; set; }
 
-    public GridCell CurrentCell
+    GridCell CurrentCell
     { get; set; }
 
-    public GridCell TargetCell
+    GridCell TargetCell
     { get; set; }
 
     #endregion
 
     #region Methods
 
-    public void NavigateTo(int x, int z)
+    public void Initialize(GridCell cell)
+    {
+        CurrentCell = cell;
+        gameObject.transform.position = new Vector3(cell.Position.x, .7f, cell.Position.y);
+    }
+
+    public void NavigateTo(GridCell cell)
     {
         if (!Moving)
         {
-            Target = new Vector3(x, gameObject.transform.position.y, z);
+            TargetCell = cell;
             Moving = true;
         }
     }
@@ -43,7 +46,7 @@ public class Agent : MonoBehaviour {
         if (Moving)
         {
             // calculate direction vector
-            Vector3 direction = Target - gameObject.transform.position;
+            Vector3 direction = TargetCell.gameObject.transform.position - gameObject.transform.position;
 
             // normalize
             direction.Normalize();
@@ -52,24 +55,32 @@ public class Agent : MonoBehaviour {
             gameObject.transform.position += direction * velocity * Time.deltaTime;
 
             // check if agent is within acceptable margins of the target
-            if (gameObject.transform.position.x >= Target.x - .1f
-                && gameObject.transform.position.x <= Target.x + .1f
-                && gameObject.transform.position.z >= Target.z - .1f
-                && gameObject.transform.position.z <= Target.z + .1f)
+            if (gameObject.transform.position.x >= TargetCell.gameObject.transform.position.x - .1f
+                && gameObject.transform.position.x <= TargetCell.gameObject.transform.position.x + .1f
+                && gameObject.transform.position.z >= TargetCell.gameObject.transform.position.z - .1f
+                && gameObject.transform.position.z <= TargetCell.gameObject.transform.position.z + .1f)
             {
                 Moving = false;
-                gameObject.transform.position = Target;
+                gameObject.transform.position = TargetCell.gameObject.transform.position;
+                TargetCell.State = CellState.Occupied;
+                CurrentCell = TargetCell;
             }
         }
 
+        // set current cell occupied
+        CurrentCell.State = CellState.Occupied;
 
         // set current tile occupied
         RaycastHit hit;
-        if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, 1f))
+        if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, 2f))
         {
+            Debug.Log(Time.deltaTime);
+
             if (hit.collider.tag == "Tile")
             {
+                Debug.Log(hit.collider.tag);
                 hit.collider.gameObject.GetComponent<GridCell>().State = CellState.Occupied;
+                CurrentCell = hit.collider.gameObject.GetComponent<GridCell>();
             }
         }
     }

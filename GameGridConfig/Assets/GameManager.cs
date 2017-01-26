@@ -31,9 +31,15 @@ public class GameManager : MonoBehaviour {
         {
             if (!agent.Moving)
             {
-                // get random neighbor of cell under this agent
-                GridCell rand = graph[(int)agent.gameObject.transform.position.x, (int)agent.gameObject.transform.position.z].Neighbors[Random.Range(0, graph[(int)agent.gameObject.transform.position.x, (int)agent.gameObject.transform.position.z].Neighbors.Count)];
-                agent.NavigateTo((int)rand.Position.x, (int)rand.Position.y);
+                // get random empty neighbor of cell under this agent
+                GridCell rand;
+                do
+                {
+                    rand = graph[(int)agent.gameObject.transform.position.x, (int)agent.gameObject.transform.position.z].Neighbors[Random.Range(0, graph[(int)agent.gameObject.transform.position.x, (int)agent.gameObject.transform.position.z].Neighbors.Count)];
+                } while (graph[(int)rand.Position.x, (int)rand.Position.y].State != CellState.Empty);
+
+                // set cell as target
+                agent.NavigateTo(graph[(int)rand.Position.x, (int)rand.Position.y]);
                 graph[(int)rand.Position.x, (int)rand.Position.y].State = CellState.Targeted;
             }
         }
@@ -167,7 +173,7 @@ public class GameManager : MonoBehaviour {
             }
 
             // place the agent
-            agent.gameObject.transform.position = new Vector3(i, agentHeight, j);
+            agent.Initialize(graph[i, j]);
         }
     }
 }
