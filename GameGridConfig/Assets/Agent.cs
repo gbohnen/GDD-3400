@@ -43,7 +43,7 @@ public class Agent : MonoBehaviour {
         }
     }
 
-    public void Update()
+    void FixedUpdate()
     {
         // move
         if (Moving)
@@ -71,9 +71,6 @@ public class Agent : MonoBehaviour {
                 CurrentCell = TargetCell;
             }
         }
-
-        // set current cell occupied
-        CurrentCell.State = CellState.Occupied;
 
         // set current tile occupied
         RaycastHit hit;
