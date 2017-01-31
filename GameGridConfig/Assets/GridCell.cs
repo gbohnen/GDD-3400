@@ -67,7 +67,7 @@ public class GridCell: MonoBehaviour {
         {
             if (value == CellState.Occupied)
             {
-                occupationTimer = .01f;
+                occupationTimer = .001f;
             }
             state = value;
         }

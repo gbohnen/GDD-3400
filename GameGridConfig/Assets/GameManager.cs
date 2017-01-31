@@ -35,12 +35,18 @@ public class GameManager : MonoBehaviour {
                 GridCell rand;
                 do
                 {
-                    rand = graph[(int)agent.gameObject.transform.position.x, (int)agent.gameObject.transform.position.z].Neighbors[Random.Range(0, graph[(int)agent.gameObject.transform.position.x, (int)agent.gameObject.transform.position.z].Neighbors.Count)];
-                } while (graph[(int)rand.Position.x, (int)rand.Position.y].State != CellState.Empty);
+                    rand = graph[(int)Mathf.Round(agent.gameObject.transform.position.x), (int)Mathf.Round(agent.gameObject.transform.position.z)].Neighbors[Random.Range(0, graph[(int)Mathf.Round(agent.gameObject.transform.position.x), (int)Mathf.Round(agent.gameObject.transform.position.z)].Neighbors.Count)];
+                    
+                    } while (graph[(int)rand.Position.x, (int)rand.Position.y].State != CellState.Empty);
 
                 // set cell as target
                 agent.NavigateTo(graph[(int)rand.Position.x, (int)rand.Position.y]);
                 graph[(int)rand.Position.x, (int)rand.Position.y].State = CellState.Targeted;
+            }
+            // if the agent is already moving, update its occupation
+            else
+            {
+                graph[(int)Mathf.Round(agent.gameObject.transform.position.x), (int)Mathf.Round(agent.gameObject.transform.position.z)].State = CellState.Occupied;
             }
         }
     }

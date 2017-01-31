@@ -21,6 +21,9 @@ public class Agent : MonoBehaviour {
     GridCell TargetCell
     { get; set; }
 
+    Vector3 Direction
+    { get; set;}
+
     #endregion
 
     #region Methods
@@ -51,6 +54,8 @@ public class Agent : MonoBehaviour {
             // normalize
             direction.Normalize();
 
+            Direction = direction;
+
             // move based on time and velocity
             gameObject.transform.position += direction * velocity * Time.deltaTime;
 
@@ -74,11 +79,8 @@ public class Agent : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, 2f))
         {
-            Debug.Log(Time.deltaTime);
-
             if (hit.collider.tag == "Tile")
             {
-                Debug.Log(hit.collider.tag);
                 hit.collider.gameObject.GetComponent<GridCell>().State = CellState.Occupied;
                 CurrentCell = hit.collider.gameObject.GetComponent<GridCell>();
             }
