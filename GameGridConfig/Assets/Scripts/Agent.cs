@@ -6,10 +6,11 @@ public class Agent : MonoBehaviour {
 
     #region Fields
 
-    public float playerFleeWeight = 0.3f;
-    public float alignToAlliesWeight = 0.3f;
-    public float avoidAlliesWeight = 0.3f;
-    public float joinHerdWeight = 0.1f;
+    public float playerFleeWeight = 3f;
+    public float alignToAlliesWeight = 1f;
+    public float avoidAlliesWeight = 1f;
+    public float joinHerdWeight = 1f;
+    public float dogAttackRange = 10;
 
     public float maxVelocity;
     public float maxAccel;
@@ -41,6 +42,9 @@ public class Agent : MonoBehaviour {
     public Vector3 Target
     { get; private set; }
 
+    public Vector3 PlayerPos
+    { get; private set; }
+
     #endregion
 
     #region Methods
@@ -64,33 +68,32 @@ public class Agent : MonoBehaviour {
     {
         Vector3 avgMovement = Vector3.zero;
 
-        // add direction away from player
-        avgMovement += ((transform.position - playerPosition));
-        Debug.Log("PlayerPos" + playerPosition);
-        Debug.Log("AvoidPlayer" + avgMovement);
+        PlayerPos = playerPosition;
 
-        //// add average flock velocity
-        //avgMovement += (avgVelocity.normalized);
+        // add direction away from player
+        avgMovement += ((transform.position - playerPosition)) * playerFleeWeight;
+        //Debug.Log("PlayerPos" + playerPosition);
+        //Debug.Log("AvoidPlayer" + avgMovement);
+
+        // add average flock velocity
+        avgMovement += (avgVelocity) * alignToAlliesWeight;
         //Debug.Log("avgVelocity" + avgVelocity);
 
-        //// add average flock position
-        //avgMovement += (avgPosition);
-        //Debug.Log("avgposition" + avgPosition);
-        //Debug.Log("AvgMovement" + avgMovement);
+        // add average flock position
+        avgMovement += (avgPosition - transform.position) * joinHerdWeight;
 
         avgMovement.y = 0;
+        avgMovement.Normalize();
 
         Target = avgMovement;
+
+        Move();
     }
 
-    public void Update()
+    public void Move()
     {
         // set acceleration, zero y value
-        Vector3 movement = Target + transform.position;
-        movement.y = 0;
-        linearAccel = movement;
-
-        Debug.Log("Target: " + Target);
+        linearAccel = Target;
 
         // update and cap acceleration
         if (linearAccel.magnitude > maxAccel)
@@ -108,9 +111,9 @@ public class Agent : MonoBehaviour {
         }
 
         // arrive behavior
-        if (movement.magnitude < arriveThreshold)
+        if (Target.magnitude < arriveThreshold)
         {
-            float distance = movement.magnitude;
+            float distance = Target.magnitude;
 
             if (distance <= arriveRadius)
                 velocity = Vector3.zero;
@@ -125,12 +128,24 @@ public class Agent : MonoBehaviour {
         // update position
         GetComponent<Rigidbody>().velocity = velocity;
 
-        //transform.position += velocity * Time.deltaTime + .5f * linearAccel * Time.deltaTime * Time.deltaTime;
-
         // update orientation
         if (velocity.sqrMagnitude > 0)
         {
             transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Atan2(velocity.x, velocity.z), 0);
+        }
+
+        // update weights
+        if ((PlayerPos - transform.position).magnitude >= dogAttackRange)
+        {
+            playerFleeWeight = 1f;
+            joinHerdWeight = 5f;
+            alignToAlliesWeight = .5f;
+        }
+        else
+        {
+            playerFleeWeight = 3f;
+            joinHerdWeight = 1f;
+            alignToAlliesWeight = 1f;
         }
 
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -18,7 +20,9 @@ public class GameManager : MonoBehaviour {
     // game constants
     int graphWidth = 25;
     int graphHeight = 25;
-    int maxAgents = 2;
+    int maxAgents = 10;
+
+    public Collider penBounds;
 
     // average agent info
     Vector3 AvgVelocity
@@ -86,12 +90,17 @@ public class GameManager : MonoBehaviour {
         // get player position
         Vector3 playerPos = player.gameObject.transform.position;
 
-        Debug.Log("PlayerPos" + playerPos);
-        
         // apply average to each agent
         foreach (Agent agent in agents)
         {
             agent.SetMovementFactors(playerPos, AvgVelocity, AvgPosition);
+        }
+
+        // end game if all cats are captured
+        if (agents.All(c => penBounds.bounds.Contains(c.transform.position)))
+        {
+            Debug.Log("GameOver");
+            SceneManager.LoadScene(0);
         }
     }
 
