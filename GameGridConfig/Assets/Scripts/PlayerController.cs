@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
         {
             float distance = movement.magnitude;
 
-            if (distance < arriveRadius)
+            if (distance <= arriveRadius)
                 velocity = Vector3.zero;
 
             if (distance < arriveThreshold)
@@ -67,7 +67,9 @@ public class PlayerController : MonoBehaviour {
 
         // update orientation
         if (velocity.sqrMagnitude > 0)
+        {
             transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Atan2(velocity.x, velocity.z), 0);
+        }
 
     }
 
