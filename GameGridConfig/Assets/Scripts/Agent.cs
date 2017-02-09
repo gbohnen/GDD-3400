@@ -6,12 +6,23 @@ public class Agent : MonoBehaviour {
 
     #region Fields
 
-    float velocity = 1;
+    public float playerFleeWeight = 0.3f;
+    public float alignToAlliesWeight = 0.3f;
+    public float avoidAlliesWeight = 0.3f;
+    public float joinHerdWeight = 0.1f;
+
+    public float maxVelocity;
+    public float maxAccel;
+    public float arriveThreshold;
+    public float arriveRadius;
+
+    Vector3 linearAccel;
+    Vector3 velocity;
 
     #endregion
 
     #region Properties
-    
+
     public bool Moving
     { get; set; }
 
@@ -26,6 +37,9 @@ public class Agent : MonoBehaviour {
 
     public Vector3 Orientation
     { get; private set;}
+
+    public Vector3 Target
+    { get; private set; }
 
     #endregion
 
@@ -46,8 +60,80 @@ public class Agent : MonoBehaviour {
         }
     }
 
+    public void SetMovementFactors(Vector3 playerPosition, Vector3 avgVelocity, Vector3 avgPosition)
+    {
+        Vector3 avgMovement = Vector3.zero;
+
+        // add direction away from player
+        avgMovement += ((transform.position - playerPosition));
+        Debug.Log("PlayerPos" + playerPosition);
+        Debug.Log("AvoidPlayer" + avgMovement);
+
+        //// add average flock velocity
+        //avgMovement += (avgVelocity.normalized);
+        //Debug.Log("avgVelocity" + avgVelocity);
+
+        //// add average flock position
+        //avgMovement += (avgPosition);
+        //Debug.Log("avgposition" + avgPosition);
+        //Debug.Log("AvgMovement" + avgMovement);
+
+        avgMovement.y = 0;
+
+        Target = avgMovement;
+    }
+
     public void Update()
     {
+        // set acceleration, zero y value
+        Vector3 movement = Target + transform.position;
+        movement.y = 0;
+        linearAccel = movement;
+
+        Debug.Log("Target: " + Target);
+
+        // update and cap acceleration
+        if (linearAccel.magnitude > maxAccel)
+        {
+            linearAccel.Normalize();
+            linearAccel *= maxAccel;
+        }
+
+        // update and cap velocity
+        velocity += linearAccel * Time.deltaTime;
+        if (velocity.magnitude > maxVelocity)
+        {
+            velocity.Normalize();
+            velocity *= maxVelocity;
+        }
+
+        // arrive behavior
+        if (movement.magnitude < arriveThreshold)
+        {
+            float distance = movement.magnitude;
+
+            if (distance <= arriveRadius)
+                velocity = Vector3.zero;
+
+            if (distance < arriveThreshold)
+            {
+                velocity.Normalize();
+                velocity *= (maxVelocity * distance / arriveThreshold);
+            }
+        }
+
+        // update position
+        GetComponent<Rigidbody>().velocity = velocity;
+
+        //transform.position += velocity * Time.deltaTime + .5f * linearAccel * Time.deltaTime * Time.deltaTime;
+
+        // update orientation
+        if (velocity.sqrMagnitude > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Atan2(velocity.x, velocity.z), 0);
+        }
+
+
 
 
 

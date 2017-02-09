@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     public GameObject tilePrefab;
     public GameObject agentPrefab;
 
+    public PlayerController player;
+
     // game objects
     public Camera mainCam;
     public GridCell[,] graph;
@@ -16,13 +18,16 @@ public class GameManager : MonoBehaviour {
     // game constants
     int graphWidth = 25;
     int graphHeight = 25;
-    int maxAgents = 10;
+    int maxAgents = 2;
 
     // average agent info
     Vector3 AvgVelocity
     { get; set; }
 
     Vector3 AvgOrientation
+    { get; set; }
+
+    Vector3 AvgPosition
     { get; set; }
 
     void Start()
@@ -32,12 +37,21 @@ public class GameManager : MonoBehaviour {
 
     void Update()
     {
+        // zero averages to be recalculated next frame
+        AvgVelocity = Vector3.zero;
+        AvgPosition = Vector3.zero;
+        AvgOrientation = Vector3.zero;
 
         foreach (Agent agent in agents)
         {
             // add agent velocity
+            AvgVelocity += agent.GetComponent<Rigidbody>().velocity;
+
+            // add agent position
+            AvgPosition += agent.transform.position;
 
             // add agent orientation
+            AvgOrientation += agent.transform.rotation.eulerAngles;
 
 
             #region Gridstuff
@@ -64,13 +78,20 @@ public class GameManager : MonoBehaviour {
             #endregion
         }
 
-        AvgVelocity = Vector3.zero;
-        AvgOrientation = Vector3.zero;
+        // divide out each average
+        AvgVelocity /= agents.Count;
+        AvgPosition /= agents.Count;
+        AvgOrientation /= agents.Count;
 
-        // average each agent
+        // get player position
+        Vector3 playerPos = player.gameObject.transform.position;
+
+        Debug.Log("PlayerPos" + playerPos);
+        
+        // apply average to each agent
         foreach (Agent agent in agents)
         {
-
+            agent.SetMovementFactors(playerPos, AvgVelocity, AvgPosition);
         }
     }
 
