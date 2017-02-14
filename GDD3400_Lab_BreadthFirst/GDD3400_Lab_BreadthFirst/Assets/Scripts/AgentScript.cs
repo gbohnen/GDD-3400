@@ -58,27 +58,36 @@ namespace Assets.Scripts
 		{
             // TODO: Modify this method to take the Target Coin object from Playmaker and do a breadthfirstsearch for it
 
+            // get the closest coin object
             GameObject closestCoin = basicMovementFSM.FsmVariables.GetFsmGameObject("Target Coin").Value;
 
-            Debug.Log(closestCoin.transform.position);
-
+            // set target equal to that cell
             basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value = closestCoin.GetComponent<CoinScript>().currentCell;
+
+            Debug.Log(currentCell.transform.position);
+            Debug.Log(basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position);
+
+            // get the path to the cell
             path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
 
+            // pick a random neighbor if the path is invalid
+            //if (path.Count == 0)
+            //{
+            //    int neighbor;
+            //    do
+            //    {
+            //        neighbor = Random.Range(0, currentCell.GetComponent<GridCellScript>().neighbors.Count);
+            //    } while (currentCell.GetComponent<GridCellScript>().neighbors[neighbor].GetComponent<GridCellScript>().IsOccupied);
 
+            //    path.Add(currentCell.GetComponent<GridCellScript>().neighbors[neighbor]);
+   //         //}
 
-            int neighbor;
-			do
-			{
-				neighbor = Random.Range(0, currentCell.GetComponent<GridCellScript>().neighbors.Count);
-			} while (currentCell.GetComponent<GridCellScript>().neighbors[neighbor].GetComponent<GridCellScript>().IsOccupied);
+   //         if (basicMovementFSM.FsmVariables.FindFsmBool("Finished Moving") != null)
+			//{
+			//	FsmBool isFinishedMoving = basicMovementFSM.FsmVariables.GetFsmBool("Finished Moving");
+			//	isFinishedMoving.Value = false;
+			//}
 
-			path.Add(currentCell.GetComponent<GridCellScript>().neighbors[neighbor]);
-			if (basicMovementFSM.FsmVariables.FindFsmBool("Finished Moving") != null)
-			{
-				FsmBool isFinishedMoving = basicMovementFSM.FsmVariables.GetFsmBool("Finished Moving");
-				isFinishedMoving.Value = false;
-			}
 			GetNextPoint();
 		}
 

@@ -113,52 +113,61 @@ namespace Assets.Scripts
 				return path;
 			queue[0].IsVisited = true;
 
-			// While there are still nodes to search
-			while (queue.Count() > 0)
-			{
-				// TODO: Complete the code in this while loop - there are some commented-out lines so that it compiles
+            // While there are still nodes to search
+            while (queue.Count() > 0)
+            {
+                // TODO: Complete the code in this while loop - there are some commented-out lines so that it compiles
 
-				// Pop off the first item from the queue (hint: queue is a list!
+                // Pop off the first item from the queue (hint: queue is a list!)
+                Node currNode = queue[0];
+                queue.RemoveAt(0);
+                Debug.Log(queue.Count);
 
-				// Check if the currNode is the goal node, if it is, we're done!
-				// if ()
-				{
-					// Add the current cell to the path
+                //Check if the currNode is the goal node, if it is, we're done!
+                if (currNode.Cell == goalCell)
+                {
+                    // Add the current cell to the path
+                    path.Add(currNode.Cell);
 
-					// Set the current cell to cyan (so we can see the path)
-					// currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                    // Set the current cell to cyan (so we can see the path)
+                    currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
 
-					// While there is a backpath from the current cell to the previous cell
-					//while ()
-					{
-						// Insert the cell into the BEGINNING of the path
+                    // While there is a backpath from the current cell to the previous cell
+                    while (currNode.BackPath != null)
+                    {
+                        // Insert the cell into the BEGINNING of the path
+                        path.Insert(0, currNode.Cell);
 
-						// Set the current cell to cyan (so we can see the path)
-						// currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                        // Set the current cell to cyan (so we can see the path)
+                        currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
 
-						// Move to the previous node in the backpath
-					}
+                        // Move to the previous node in the backpath
+                        currNode = currNode.BackPath;
+                    }
 
-					// Return the path
-					return path;
-				}
+                    // Return the path
+                    return path;
+                }
 
-				// For each edge in the current node's neighbors that is not visited and not occupied
-				//foreach (Edge edge in )
-				{
-					// Add the neighbor to the queue
+                // For each edge in the current node's neighbors that is not visited and not occupied
+                foreach (Edge edge in currNode.NeighborEdges.Where(neighbor => neighbor.End.IsVisited == false && !neighbor.End.Cell.GetComponent<GridCellScript>().IsOccupied))
+                {
+                    // Add the neighbor to the queue
+                    queue.Add(edge.End);
 
-					// Set the neighbor's color to yellow (so we can see all nodes considered)
-					// edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                    // Set the neighbor's color to yellow (so we can see all nodes considered)
+                    edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
 
-					// Set the backpath of the neighbor to the current node
+                    // Set the backpath of the neighbor to the current node
+                    edge.End.BackPath = currNode;
 
-					// Set the neighbor to visited
-				}
-			}
+                    // Set the neighbor to visited
+                    edge.End.IsVisited = true;
+                }
+            }
 
-			// Return the path
-			return path;
+            // Return the path
+            return path;
 		}
 	}
 }
