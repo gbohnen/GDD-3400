@@ -11,6 +11,8 @@ namespace Assets.Scripts
 		public GameObject currentCell;
 		List<GameObject> path;
 
+        SearchType type;
+
 		private PlayMakerFSM basicMovementFSM;
 		public Graph graph;
 
@@ -64,19 +66,40 @@ namespace Assets.Scripts
             // set target equal to that cell
             basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value = closestCoin.GetComponent<CoinScript>().currentCell;
 
+            switch (type)
+            {
+                case SearchType.BreadthFirst:
+                    path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                    break;
+                case SearchType.Djikstras:
+                    path = graph.DjikstrasSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                    break;
+                case SearchType.AStar:
+                    path = graph.AStarSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                    break;
+                case SearchType.BestFirst:
+                    path = graph.BestFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                    break;
+                default:
+                    path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                    break;
+            }
+
             // get the path to the cell
             path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
 
 			GetNextPoint();
 		}
 
-		/// <summary>
-		/// Initialize the agent
-		/// </summary>
-		/// <param name="grid"></param>
-		/// <param name="startCell"></param>
-		public void Initialize(GameObject[,] grid, GameObject startCell)
+        /// <summary>
+        /// Initialize the agent
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <param name="startCell"></param>
+        public void Initialize(GameObject[,] grid, GameObject startCell, SearchType searchType)
 		{
+            type = searchType;
+
 			path = new List<GameObject>();
 			currentCell = startCell;
 			currentCell.GetComponent<GridCellScript>().IsOccupied = true;

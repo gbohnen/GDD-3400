@@ -5,6 +5,8 @@ using System.Text;
 using System.Collections;
 using UnityEngine;
 
+public enum SearchType { BreadthFirst, BestFirst, Djikstras, AStar }
+
 namespace Assets.Scripts
 {
 	class Edge
@@ -167,6 +169,45 @@ namespace Assets.Scripts
 
             // Return the path
             return path;
-		}
-	}
+        }
+
+        /// <summary>
+        /// Compute the most efficient path to the gridCell using a Djikstra's algorithm
+        /// </summary>
+        /// <param name="goalCell"></param>
+        /// <returns></returns>
+        public List<GameObject> DjikstrasSearch(GameObject startCell, GameObject goalCell)
+        {
+            ResetGraph();
+
+            List<GameObject> path = new List<GameObject>();
+            return path;
+        }
+
+        /// <summary>
+        /// Compute the most efficient path to the gridCell using a* algorithm
+        /// </summary>
+        /// <param name="goalCell"></param>
+        /// <returns></returns>
+        public List<GameObject> AStarSearch(GameObject startCell, GameObject goalCell)
+        {
+            ResetGraph();
+
+            List<GameObject> path = new List<GameObject>();
+            return path;
+        }
+
+        /// <summary>
+        /// Compute the most efficient path to the gridCell using best first search
+        /// </summary>
+        /// <param name="goalCell"></param>
+        /// <returns></returns>
+        public List<GameObject> BestFirstSearch(GameObject startCell, GameObject goalCell)
+        {
+            ResetGraph();
+
+            List<GameObject> path = new List<GameObject>();
+            return path;
+        }
+    }
 }
