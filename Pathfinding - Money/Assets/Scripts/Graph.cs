@@ -18,6 +18,13 @@ namespace Assets.Scripts
 			Start = start;
 			End = end;
 		}
+        public float Length
+        {
+            get
+            {
+                return (End.Cell.transform.position - Start.Cell.transform.position).magnitude;
+            }
+        }
 	}
 
 	class Node

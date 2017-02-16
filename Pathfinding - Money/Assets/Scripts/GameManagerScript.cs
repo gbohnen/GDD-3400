@@ -163,7 +163,7 @@ namespace Assets.Scripts
 
                 // Create a new agent
                 GameObject newAgent = Instantiate(agentPrefab, new Vector3(row + 1 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
-                newAgent.GetComponent<AgentScript>().Initialize(grid1, grid1[row, col], SearchType.AStar);
+                newAgent.GetComponent<AgentScript>().Initialize(grid1, grid1[row, col], SearchType.BestFirst);
                 agents.Add(newAgent);
             }
 
@@ -180,12 +180,12 @@ namespace Assets.Scripts
 
                 // Create a new agent
                 GameObject newAgent = Instantiate(agentPrefab, new Vector3(row + 2 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
-                newAgent.GetComponent<AgentScript>().Initialize(grid2, grid2[row, col], SearchType.BestFirst);
+                newAgent.GetComponent<AgentScript>().Initialize(grid2, grid2[row, col], SearchType.AStar);
                 agents.Add(newAgent);
             }
 
             // Center the camera above the map
-            mainCamera.transform.position = new Vector3((WORLD_SIZE + WORLD_OFFSET * 2) * 0.5f, WORLD_SIZE * 3 + WORLD_OFFSET * 0.5f, WORLD_SIZE * 0.5f);
+            mainCamera.transform.position = new Vector3((WORLD_SIZE + WORLD_OFFSET * 2) * 0.5f, WORLD_SIZE * 3 + WORLD_OFFSET * 0.5f, -WORLD_SIZE * 0.5f);
 
 			// Setup the gold coin timer
 			timer = MAX_TIMER;
