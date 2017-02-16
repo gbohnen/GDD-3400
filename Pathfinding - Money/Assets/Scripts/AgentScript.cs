@@ -66,29 +66,52 @@ namespace Assets.Scripts
             // set target equal to that cell
             basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value = closestCoin.GetComponent<CoinScript>().currentCell;
 
-            switch (type)
+
+            // guard against grid conflicts
+            // if the distance is less than the world offset
+            if ((basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position - currentCell.transform.position).magnitude < GameManagerScript.WORLD_SIZE)
             {
-                case SearchType.BreadthFirst:
-                    path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-                    break;
-                case SearchType.Djikstras:
-                    path = graph.DjikstrasSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-                    break;
-                case SearchType.AStar:
-                    path = graph.AStarSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-                    break;
-                case SearchType.BestFirst:
-                    path = graph.BestFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-                    break;
-                default:
-                    path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-                    break;
+                switch (type)
+                {
+                    case SearchType.BreadthFirst:
+                        path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                        break;
+                    case SearchType.Djikstras:
+                        path = graph.DjikstrasSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                        break;
+                    case SearchType.AStar:
+                        path = graph.AStarSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                        break;
+                    case SearchType.BestFirst:
+                        path = graph.BestFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                        break;
+                    default:
+                        path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+                        break;
+                }
+            }
+            else
+            {
+                //pick a random neighbor if the path is invalid
+                if (path.Count == 0)
+                {
+                    int neighbor;
+                    do
+                    {
+                        neighbor = Random.Range(0, currentCell.GetComponent<GridCellScript>().neighbors.Count);
+                    } while (currentCell.GetComponent<GridCellScript>().neighbors[neighbor].GetComponent<GridCellScript>().IsOccupied);
+
+                    path.Add(currentCell.GetComponent<GridCellScript>().neighbors[neighbor]);
+                }
             }
 
-            // get the path to the cell
-            path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
+            if (basicMovementFSM.FsmVariables.FindFsmBool("Finished Moving") != null)
+            {
+                FsmBool isFinishedMoving = basicMovementFSM.FsmVariables.GetFsmBool("Finished Moving");
+                isFinishedMoving.Value = false;
+            }
 
-			GetNextPoint();
+            GetNextPoint();
 		}
 
         /// <summary>

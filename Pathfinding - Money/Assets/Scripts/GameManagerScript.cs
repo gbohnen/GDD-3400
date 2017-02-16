@@ -79,6 +79,7 @@ namespace Assets.Scripts
             {
                 for (int j = 0; j < WORLD_SIZE; ++j)
                 {
+                    // get horizonts
                     for (int m = i - 1; m <= i + 1; m += 2)
                     {
                         // If this is the same cell, don't add it as a neighbor
@@ -87,8 +88,24 @@ namespace Assets.Scripts
                             grid0[i, j].GetComponent<GridCellScript>().neighbors.Add(grid0[m, j]);
                             grid1[i, j].GetComponent<GridCellScript>().neighbors.Add(grid1[m, j]);
                             grid2[i, j].GetComponent<GridCellScript>().neighbors.Add(grid2[m, j]);
+
+                            // check for below diagonals
+                            if (j - 1 >= 0)
+                            {
+                                grid0[i, j].GetComponent<GridCellScript>().neighbors.Add(grid0[m, j - 1]);
+                                grid1[i, j].GetComponent<GridCellScript>().neighbors.Add(grid1[m, j - 1]);
+                                grid2[i, j].GetComponent<GridCellScript>().neighbors.Add(grid2[m, j - 1]);
+                            }
+                            // check above diagonals
+                            if (j + 1 < WORLD_SIZE)
+                            {
+                                grid0[i, j].GetComponent<GridCellScript>().neighbors.Add(grid0[m, j + 1]);
+                                grid1[i, j].GetComponent<GridCellScript>().neighbors.Add(grid1[m, j + 1]);
+                                grid2[i, j].GetComponent<GridCellScript>().neighbors.Add(grid2[m, j + 1]);
+                            }
                         }
                     }
+                    // get verts
                     for (int n = j - 1; n <= j + 1; n += 2)
                     {
                         // If this is the same cell, don't add it as a neighbor
@@ -102,54 +119,54 @@ namespace Assets.Scripts
                 }
             }
 
-            // Create a bunch of obstacles and put on empty cells
-            int nbrCells = WORLD_SIZE * WORLD_SIZE;
-            int nbrObstacles = (int)Random.Range(nbrCells * .2f, nbrCells * .3f);
-            for (int i = 0; i < nbrObstacles; ++i)
-            {
-                int row;
-                int col;
-                do
-                {
-                    row = (int)(Random.value * WORLD_SIZE);
-                    col = (int)(Random.value * WORLD_SIZE);
-                } while (grid0[row, col].GetComponent<GridCellScript>().IsOccupied);
+            //// Create a bunch of obstacles and put on empty cells
+            //int nbrCells = WORLD_SIZE * WORLD_SIZE;
+            //int nbrObstacles = (int)Random.Range(nbrCells * .2f, nbrCells * .3f);
+            //for (int i = 0; i < nbrObstacles; ++i)
+            //{
+            //    int row;
+            //    int col;
+            //    do
+            //    {
+            //        row = (int)(Random.value * WORLD_SIZE);
+            //        col = (int)(Random.value * WORLD_SIZE);
+            //    } while (grid0[row, col].GetComponent<GridCellScript>().IsOccupied);
 
-                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 0 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
-                obstacle.GetComponent<ObstacleScript>().Initialize(grid0[row, col]);
-                grid0[row, col].GetComponent<GridCellScript>().IsOccupied = true;
-                obstacles.Add(obstacle);
-            }
-            for (int i = 0; i < nbrObstacles; ++i)
-            {
-                int row;
-                int col;
-                do
-                {
-                    row = (int)(Random.value * WORLD_SIZE);
-                    col = (int)(Random.value * WORLD_SIZE);
-                } while (grid1[row, col].GetComponent<GridCellScript>().IsOccupied);
+            //    GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 0 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
+            //    obstacle.GetComponent<ObstacleScript>().Initialize(grid0[row, col]);
+            //    grid0[row, col].GetComponent<GridCellScript>().IsOccupied = true;
+            //    obstacles.Add(obstacle);
+            //}
+            //for (int i = 0; i < nbrObstacles; ++i)
+            //{
+            //    int row;
+            //    int col;
+            //    do
+            //    {
+            //        row = (int)(Random.value * WORLD_SIZE);
+            //        col = (int)(Random.value * WORLD_SIZE);
+            //    } while (grid1[row, col].GetComponent<GridCellScript>().IsOccupied);
 
-                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 1 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
-                obstacle.GetComponent<ObstacleScript>().Initialize(grid1[row, col]);
-                grid1[row, col].GetComponent<GridCellScript>().IsOccupied = true;
-                obstacles.Add(obstacle);
-            }
-            for (int i = 0; i < nbrObstacles; ++i)
-            {
-                int row;
-                int col;
-                do
-                {
-                    row = (int)(Random.value * WORLD_SIZE);
-                    col = (int)(Random.value * WORLD_SIZE);
-                } while (grid2[row, col].GetComponent<GridCellScript>().IsOccupied);
+            //    GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 1 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
+            //    obstacle.GetComponent<ObstacleScript>().Initialize(grid1[row, col]);
+            //    grid1[row, col].GetComponent<GridCellScript>().IsOccupied = true;
+            //    obstacles.Add(obstacle);
+            //}
+            //for (int i = 0; i < nbrObstacles; ++i)
+            //{
+            //    int row;
+            //    int col;
+            //    do
+            //    {
+            //        row = (int)(Random.value * WORLD_SIZE);
+            //        col = (int)(Random.value * WORLD_SIZE);
+            //    } while (grid2[row, col].GetComponent<GridCellScript>().IsOccupied);
 
-                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 2 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
-                obstacle.GetComponent<ObstacleScript>().Initialize(grid2[row, col]);
-                grid2[row, col].GetComponent<GridCellScript>().IsOccupied = true;
-                obstacles.Add(obstacle);
-            }
+            //    GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 2 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
+            //    obstacle.GetComponent<ObstacleScript>().Initialize(grid2[row, col]);
+            //    grid2[row, col].GetComponent<GridCellScript>().IsOccupied = true;
+            //    obstacles.Add(obstacle);
+            //}
 
             // Create agents and put on empty cells
             for (int i = 0; i < AGENT_NUMBER; ++i)

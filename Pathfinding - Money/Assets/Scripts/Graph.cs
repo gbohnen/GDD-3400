@@ -9,21 +9,36 @@ public enum SearchType { BreadthFirst, BestFirst, Djikstras, AStar }
 
 namespace Assets.Scripts
 {
-	class Edge
+    public class Pair<T, U>
+    {
+        public Pair()
+        {
+        }
+
+        public Pair(T first, U second)
+        {
+            this.First = first;
+            this.Second = second;
+        }
+
+        public T First { get; set; }
+        public U Second { get; set; }
+    }
+
+    class Edge
 	{
+        float length;
 		public Node Start { get; set; }
 		public Node End { get; set; }
 		public Edge(Node start, Node end)
 		{
 			Start = start;
 			End = end;
-		}
+            length = (End.Cell.transform.position - Start.Cell.transform.position).magnitude;
+        }
         public float Length
         {
-            get
-            {
-                return (End.Cell.transform.position - Start.Cell.transform.position).magnitude;
-            }
+            get { return length; }
         }
 	}
 
@@ -39,8 +54,13 @@ namespace Assets.Scripts
 			this.Cell = cell;
 			IsVisited = false;
 			BackPath = null;
-		}
-	}
+
+            Coords = new Vector2(cell.transform.position.x, cell.transform.position.z);
+        }
+        public float Distance { get; set; }
+        public Vector2 Coords
+        { get; set; }
+    }
 
 	public class Graph
 	{
@@ -99,6 +119,7 @@ namespace Assets.Scripts
 			{
 				n.IsVisited = false;
 				n.BackPath = null;
+                n.Distance = 0;
 			}
 		}
 
@@ -115,7 +136,7 @@ namespace Assets.Scripts
 
 			List<Node> queue = new List<Node>();
 
-			queue.Add(nodes.Where(n => n.Cell == startCell).First());
+			queue.Add(nodes.FirstOrDefault(n => n.Cell == startCell));
 
 			// If the goal gridcell doesn't exist in our graph (ERROR!!)
 			if (queue[0] == null)
@@ -188,6 +209,89 @@ namespace Assets.Scripts
             ResetGraph();
 
             List<GameObject> path = new List<GameObject>();
+
+            List<Node> priorityQueue = new List<Node>();
+
+            // data members
+            int enq = 0;
+            int deq = 0;
+
+            priorityQueue.Add(nodes.FirstOrDefault(n => n.Cell == startCell));
+
+            // If the goal gridcell doesn't exist in our graph (ERROR!!)
+            if (priorityQueue[0] == null)
+                return path;
+            priorityQueue[0].IsVisited = true;
+            priorityQueue[0].Distance = 0;
+
+            while (priorityQueue.Count > 0)
+            {
+                // pop off first item in queue, store as current node
+                Node currNode = priorityQueue[0];
+                priorityQueue.RemoveAt(0);
+                currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
+                deq++;
+
+                // if goal, calculate path
+                //Check if the currNode is the goal node, if it is, we're done!
+                if (currNode.Cell == goalCell)
+                {
+                    // Add the current cell to the path
+                    path.Add(currNode.Cell);
+
+                    // Set the current cell to cyan (so we can see the path)
+                    currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+
+                    // While there is a backpath from the current cell to the previous cell
+                    while (currNode.BackPath != null)
+                    {
+                        // Insert the cell into the BEGINNING of the path
+                        path.Insert(0, currNode.Cell);
+
+                        // Set the current cell to cyan (so we can see the path)
+                        currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+
+                        // Move to the previous node in the backpath
+                        currNode = currNode.BackPath;
+                    }
+
+                    // Return the path
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.Djikstras, enq, deq);
+                    return path;
+                }
+
+                // for each neighbor, check and update distances
+                foreach (Edge edge in currNode.NeighborEdges.Where(n => !n.End.Cell.GetComponent<GridCellScript>().IsOccupied))
+                {
+                    if (!edge.End.IsVisited)
+                    {
+                        edge.End.IsVisited = true;                                  // mark visited
+                        edge.End.Distance = currNode.Distance + edge.Length;        // update distance
+                        edge.End.BackPath = currNode;                               // set back-pointer
+                        priorityQueue.Add(edge.End);                                // add neighbor to queue
+                        edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                        enq++;
+                    }
+                    else
+                    {
+                        // update the distance if it was shorter
+                        if (currNode.Distance + edge.Length < edge.End.Distance)
+                        {
+                            var newNode = priorityQueue.FirstOrDefault(n => n == edge.End);
+
+                            if (newNode != null)
+                            {
+                                newNode.Distance = currNode.Distance + edge.Length;
+                                newNode.BackPath = currNode;
+                            }
+                        }
+                    }
+                }
+
+                // sort priority queue
+                PrioritizeList(priorityQueue);
+            }            
+
             return path;
         }
 
@@ -201,6 +305,9 @@ namespace Assets.Scripts
             ResetGraph();
 
             List<GameObject> path = new List<GameObject>();
+
+
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.AStar, 0, 0);
             return path;
         }
 
@@ -214,7 +321,24 @@ namespace Assets.Scripts
             ResetGraph();
 
             List<GameObject> path = new List<GameObject>();
+
+
+
+
+
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.BestFirst, 0, 0);
             return path;
+        }
+
+
+        /// <summary>
+        /// sorts a list based on the distance value of each node
+        /// </summary>
+        /// <param name="list"> the list to be sorted  </param>
+        /// <returns></returns>
+        List<Node> PrioritizeList(List<Node> list)
+        {
+            return list.OrderBy(n => n.Distance).ToList();
         }
     }
 }
