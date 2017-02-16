@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -20,6 +21,23 @@ namespace Assets.Scripts
 		public GameObject agentPrefab;
 		public GameObject coinPrefab;
 		public GameObject obstaclePrefab;
+
+        public Text DjikstrasEnqueued;
+        public Text DjikstrasDequeued;
+        public Text BestFirstEnqueued;
+        public Text BestFirstDequeued;
+        public Text AStarEnqueued;
+        public Text AStarDequeued;
+
+        int DjikEnq = 0;
+        int DjikDeq = 0;
+        int BeFiEnq = 0;
+        int BeFiDeq = 0;
+        int AStaEnq = 0;
+        int AStaDeq = 0;
+
+        string enqueueBase = "Enqueued: ";
+        string dequeueBase = "Dequeued: ";
 
         private GameObject[,] grid0;
         private GameObject[,] grid1;
@@ -185,7 +203,7 @@ namespace Assets.Scripts
             }
 
             // Center the camera above the map
-            mainCamera.transform.position = new Vector3((WORLD_SIZE + WORLD_OFFSET * 2) * 0.5f, WORLD_SIZE * 3 + WORLD_OFFSET * 0.5f, -WORLD_SIZE * 0.5f);
+            mainCamera.transform.position = new Vector3((WORLD_SIZE + WORLD_OFFSET * 2) * 0.5f, WORLD_SIZE * 3 + WORLD_OFFSET * .3f, 0);
 
 			// Setup the gold coin timer
 			timer = MAX_TIMER;
@@ -240,6 +258,31 @@ namespace Assets.Scripts
                 grid2[row, col].GetComponent<GridCellScript>().IsCoin = true;
                 timer = MAX_TIMER;
             }
-		}
-	}
+        }
+
+        public void UpdateNodeCount(SearchType type, int enq, int deq)
+        {
+            switch (type)
+            {
+                case SearchType.Djikstras:
+                    DjikEnq += enq;
+                    DjikDeq += deq;
+                    DjikstrasEnqueued.text = enqueueBase + DjikEnq;
+                    DjikstrasDequeued.text = dequeueBase + DjikDeq;
+                    break;
+                case SearchType.BestFirst:
+                    BeFiEnq += enq;
+                    BeFiDeq += deq;
+                    BestFirstEnqueued.text = enqueueBase + BeFiEnq;
+                    BestFirstDequeued.text = dequeueBase + BeFiDeq;
+                    break;
+                case SearchType.AStar:
+                    AStaEnq += enq;
+                    AStaDeq += deq;
+                    AStarEnqueued.text = enqueueBase + AStaEnq;
+                    AStarDequeued.text = dequeueBase + AStaDeq;
+                    break;
+            }
+        }
+    }
 }
