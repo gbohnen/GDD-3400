@@ -138,5 +138,10 @@ namespace Assets.Scripts
 				targetCell.Value = currentCell;
 			}
 		}
+
+        public void CoinCollectFlag()
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(type, 0, 0, 1);
+        }
 	}
 }

@@ -9,22 +9,6 @@ public enum SearchType { BreadthFirst, BestFirst, Djikstras, AStar }
 
 namespace Assets.Scripts
 {
-    public class Pair<T, U>
-    {
-        public Pair()
-        {
-        }
-
-        public Pair(T first, U second)
-        {
-            this.First = first;
-            this.Second = second;
-        }
-
-        public T First { get; set; }
-        public U Second { get; set; }
-    }
-
     class Edge
 	{
         float length;
@@ -57,6 +41,7 @@ namespace Assets.Scripts
 
             Coords = new Vector2(cell.transform.position.x, cell.transform.position.z);
         }
+        public float Priority { get; set; }
         public float Distance { get; set; }
         public Vector2 Coords
         { get; set; }
@@ -119,6 +104,7 @@ namespace Assets.Scripts
 			{
 				n.IsVisited = false;
 				n.BackPath = null;
+                n.Priority = 0;
                 n.Distance = 0;
 			}
 		}
@@ -222,6 +208,103 @@ namespace Assets.Scripts
             if (priorityQueue[0] == null)
                 return path;
             priorityQueue[0].IsVisited = true;
+            priorityQueue[0].Priority = 0;
+
+            while (priorityQueue.Count > 0)
+            {
+                // pop off first item in queue, store as current node
+                Node currNode = priorityQueue[0];
+                priorityQueue.RemoveAt(0);
+                currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
+                deq++;
+
+                // if goal, calculate path
+                //Check if the currNode is the goal node, if it is, we're done!
+                if (currNode.Cell == goalCell)
+                {
+                    // Add the current cell to the path
+                    path.Add(currNode.Cell);
+
+                    // Set the current cell to cyan (so we can see the path)
+                    currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+
+                    // While there is a backpath from the current cell to the previous cell
+                    while (currNode.BackPath != null)
+                    {
+                        // Insert the cell into the BEGINNING of the path
+                        path.Insert(0, currNode.Cell);
+
+                        // Set the current cell to cyan (so we can see the path)
+                        currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+
+                        // Move to the previous node in the backpath
+                        currNode = currNode.BackPath;
+                    }
+
+                    // Return the path
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.Djikstras, enq, deq, 0);
+                    return path;
+                }
+
+                // for each neighbor, check and update distances
+                foreach (Edge edge in currNode.NeighborEdges.Where(n => !n.End.Cell.GetComponent<GridCellScript>().IsOccupied))
+                {
+                    if (!edge.End.IsVisited)
+                    {
+                        edge.End.IsVisited = true;                                  // mark visited
+                        edge.End.Priority = currNode.Priority + edge.Length;        // update distance
+                        edge.End.BackPath = currNode;                               // set back-pointer
+                        priorityQueue.Add(edge.End);                                // add neighbor to queue
+                        edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                        enq++;
+                    }
+                    else
+                    {
+                        // update the distance if it was shorter
+                        if (currNode.Priority + edge.Length < edge.End.Priority)
+                        {
+                            var newNode = priorityQueue.FirstOrDefault(n => n == edge.End);
+
+                            if (newNode != null)
+                            {
+                                newNode.Priority = currNode.Priority + edge.Length;
+                                newNode.BackPath = currNode;
+                            }
+                        }
+                    }
+                }
+
+                // sort priority queue
+                priorityQueue = PrioritizeList(priorityQueue);
+            }            
+
+            return path;
+        }
+
+        /// <summary>
+        /// Compute the most efficient path to the gridCell using a* algorithm
+        /// </summary>
+        /// <param name="goalCell"></param>
+        /// <returns></returns>
+        public List<GameObject> AStarSearch(GameObject startCell, GameObject goalCell)
+        {
+            ResetGraph();
+
+            List<GameObject> path = new List<GameObject>();
+
+            List<Node> priorityQueue = new List<Node>();
+
+            // data members
+            int enq = 0;
+            int deq = 0;
+
+            priorityQueue.Add(nodes.FirstOrDefault(n => n.Cell == startCell));
+
+            // If the goal gridcell doesn't exist in our graph (ERROR!!)
+            if (priorityQueue[0] == null)
+                return path;
+            priorityQueue[0].IsVisited = true;
+            priorityQueue[0].Priority = 0;
             priorityQueue[0].Distance = 0;
 
             while (priorityQueue.Count > 0)
@@ -256,7 +339,7 @@ namespace Assets.Scripts
                     }
 
                     // Return the path
-                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.Djikstras, enq, deq);
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.AStar, enq, deq, 0);
                     return path;
                 }
 
@@ -266,6 +349,8 @@ namespace Assets.Scripts
                     if (!edge.End.IsVisited)
                     {
                         edge.End.IsVisited = true;                                  // mark visited
+
+                        edge.End.Priority = currNode.Distance + edge.Length + EstimateDistance(goalCell, edge.End.Cell);     // update priority
                         edge.End.Distance = currNode.Distance + edge.Length;        // update distance
                         edge.End.BackPath = currNode;                               // set back-pointer
                         priorityQueue.Add(edge.End);                                // add neighbor to queue
@@ -275,13 +360,14 @@ namespace Assets.Scripts
                     else
                     {
                         // update the distance if it was shorter
-                        if (currNode.Distance + edge.Length < edge.End.Distance)
+                        if (currNode.Distance + edge.Length + EstimateDistance(goalCell, edge.End.Cell) < edge.End.Priority)
                         {
                             var newNode = priorityQueue.FirstOrDefault(n => n == edge.End);
 
                             if (newNode != null)
                             {
-                                newNode.Distance = currNode.Distance + edge.Length;
+                                newNode.Priority = currNode.Distance + edge.Length + EstimateDistance(goalCell, edge.End.Cell);
+                                newNode.Distance = currNode.Priority + edge.Length;
                                 newNode.BackPath = currNode;
                             }
                         }
@@ -289,25 +375,9 @@ namespace Assets.Scripts
                 }
 
                 // sort priority queue
-                PrioritizeList(priorityQueue);
-            }            
+                priorityQueue = PrioritizeList(priorityQueue);
+            }
 
-            return path;
-        }
-
-        /// <summary>
-        /// Compute the most efficient path to the gridCell using a* algorithm
-        /// </summary>
-        /// <param name="goalCell"></param>
-        /// <returns></returns>
-        public List<GameObject> AStarSearch(GameObject startCell, GameObject goalCell)
-        {
-            ResetGraph();
-
-            List<GameObject> path = new List<GameObject>();
-
-
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.AStar, 0, 0);
             return path;
         }
 
@@ -322,11 +392,88 @@ namespace Assets.Scripts
 
             List<GameObject> path = new List<GameObject>();
 
+            List<Node> priorityQueue = new List<Node>();
 
+            // data members
+            int enq = 0;
+            int deq = 0;
 
+            priorityQueue.Add(nodes.FirstOrDefault(n => n.Cell == startCell));
 
+            // If the goal gridcell doesn't exist in our graph (ERROR!!)
+            if (priorityQueue[0] == null)
+                return path;
+            priorityQueue[0].IsVisited = true;
+            priorityQueue[0].Priority = EstimateDistance(goalCell, priorityQueue[0].Cell);
 
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.BestFirst, 0, 0);
+            while (priorityQueue.Count > 0)
+            {
+                // pop off first item in queue, store as current node
+                Node currNode = priorityQueue[0];
+                priorityQueue.RemoveAt(0);
+                currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
+                deq++;
+
+                // if goal, calculate path
+                //Check if the currNode is the goal node, if it is, we're done!
+                if (currNode.Cell == goalCell)
+                {
+                    // Add the current cell to the path
+                    path.Add(currNode.Cell);
+
+                    // Set the current cell to cyan (so we can see the path)
+                    currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+
+                    // While there is a backpath from the current cell to the previous cell
+                    while (currNode.BackPath != null)
+                    {
+                        // Insert the cell into the BEGINNING of the path
+                        path.Insert(0, currNode.Cell);
+
+                        // Set the current cell to cyan (so we can see the path)
+                        currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+
+                        // Move to the previous node in the backpath
+                        currNode = currNode.BackPath;
+                    }
+
+                    // Return the path
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateNodeCount(SearchType.BestFirst, enq, deq, 0);
+                    return path;
+                }
+
+                // for each neighbor, check and update distances
+                foreach (Edge edge in currNode.NeighborEdges.Where(n => !n.End.Cell.GetComponent<GridCellScript>().IsOccupied))
+                {
+                    if (!edge.End.IsVisited)
+                    {
+                        edge.End.IsVisited = true;                                  // mark visited
+                        edge.End.Priority = EstimateDistance(goalCell, edge.End.Cell);        // update distance
+                        edge.End.BackPath = currNode;                               // set back-pointer
+                        priorityQueue.Add(edge.End);                                // add neighbor to queue
+                        edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                        enq++;
+                    }
+                    else
+                    {
+                        // update the distance if it was shorter
+                        if (EstimateDistance(goalCell, edge.End.Cell) < edge.End.Priority)
+                        {
+                            var newNode = priorityQueue.FirstOrDefault(n => n == edge.End);
+
+                            if (newNode != null)
+                            {
+                                newNode.Priority = EstimateDistance(goalCell, edge.End.Cell);
+                                newNode.BackPath = currNode;
+                            }
+                        }
+                    }
+                }
+
+                // sort priority queue
+                priorityQueue = PrioritizeList(priorityQueue);
+            }
+
             return path;
         }
 
@@ -338,7 +485,13 @@ namespace Assets.Scripts
         /// <returns></returns>
         List<Node> PrioritizeList(List<Node> list)
         {
-            return list.OrderBy(n => n.Distance).ToList();
+            return list.OrderBy(n => n.Priority).ToList();
+        }
+
+        float EstimateDistance(GameObject target, GameObject current)
+        {
+            // manhattan distance
+            return Math.Abs(target.transform.position.x - current.transform.position.x) + Math.Abs(target.transform.position.z - current.transform.position.z);
         }
     }
 }

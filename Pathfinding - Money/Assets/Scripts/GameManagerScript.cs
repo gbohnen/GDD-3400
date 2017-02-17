@@ -24,20 +24,27 @@ namespace Assets.Scripts
 
         public Text DjikstrasEnqueued;
         public Text DjikstrasDequeued;
+        public Text DjikstraCoins;
         public Text BestFirstEnqueued;
         public Text BestFirstDequeued;
+        public Text BestFirstCoins;
         public Text AStarEnqueued;
         public Text AStarDequeued;
+        public Text AStarCoins;
 
         int DjikEnq = 0;
         int DjikDeq = 0;
+        int DjikCoin = 0;
         int BeFiEnq = 0;
         int BeFiDeq = 0;
+        int BeFiCoin = 0;
         int AStaEnq = 0;
         int AStaDeq = 0;
+        int AStaCoin = 0;
 
         string enqueueBase = "Enqueued: ";
         string dequeueBase = "Dequeued: ";
+        string coinsBase = "Coins: ";
 
         private GameObject[,] grid0;
         private GameObject[,] grid1;
@@ -79,6 +86,17 @@ namespace Assets.Scripts
             {
                 for (int j = 0; j < WORLD_SIZE; ++j)
                 {
+                    // get verts
+                    for (int n = j - 1; n <= j + 1; n += 2)
+                    {
+                        // If this is the same cell, don't add it as a neighbor
+                        if (n >= 0 && n < WORLD_SIZE)
+                        {
+                            grid0[i, j].GetComponent<GridCellScript>().neighbors.Add(grid0[i, n]);
+                            grid1[i, j].GetComponent<GridCellScript>().neighbors.Add(grid1[i, n]);
+                            grid2[i, j].GetComponent<GridCellScript>().neighbors.Add(grid2[i, n]);
+                        }
+                    }
                     // get horizonts
                     for (int m = i - 1; m <= i + 1; m += 2)
                     {
@@ -105,68 +123,57 @@ namespace Assets.Scripts
                             }
                         }
                     }
-                    // get verts
-                    for (int n = j - 1; n <= j + 1; n += 2)
-                    {
-                        // If this is the same cell, don't add it as a neighbor
-                        if (n >= 0 && n < WORLD_SIZE)
-                        {
-                            grid0[i, j].GetComponent<GridCellScript>().neighbors.Add(grid0[i, n]);
-                            grid1[i, j].GetComponent<GridCellScript>().neighbors.Add(grid1[i, n]);
-                            grid2[i, j].GetComponent<GridCellScript>().neighbors.Add(grid2[i, n]);
-                        }
-                    }
                 }
             }
 
-            //// Create a bunch of obstacles and put on empty cells
-            //int nbrCells = WORLD_SIZE * WORLD_SIZE;
-            //int nbrObstacles = (int)Random.Range(nbrCells * .2f, nbrCells * .3f);
-            //for (int i = 0; i < nbrObstacles; ++i)
-            //{
-            //    int row;
-            //    int col;
-            //    do
-            //    {
-            //        row = (int)(Random.value * WORLD_SIZE);
-            //        col = (int)(Random.value * WORLD_SIZE);
-            //    } while (grid0[row, col].GetComponent<GridCellScript>().IsOccupied);
+            // Create a bunch of obstacles and put on empty cells
+            int nbrCells = WORLD_SIZE * WORLD_SIZE;
+            int nbrObstacles = (int)Random.Range(nbrCells * .2f, nbrCells * .3f);
+            for (int i = 0; i < nbrObstacles; ++i)
+            {
+                int row;
+                int col;
+                do
+                {
+                    row = (int)(Random.value * WORLD_SIZE);
+                    col = (int)(Random.value * WORLD_SIZE);
+                } while (grid0[row, col].GetComponent<GridCellScript>().IsOccupied);
 
-            //    GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 0 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
-            //    obstacle.GetComponent<ObstacleScript>().Initialize(grid0[row, col]);
-            //    grid0[row, col].GetComponent<GridCellScript>().IsOccupied = true;
-            //    obstacles.Add(obstacle);
-            //}
-            //for (int i = 0; i < nbrObstacles; ++i)
-            //{
-            //    int row;
-            //    int col;
-            //    do
-            //    {
-            //        row = (int)(Random.value * WORLD_SIZE);
-            //        col = (int)(Random.value * WORLD_SIZE);
-            //    } while (grid1[row, col].GetComponent<GridCellScript>().IsOccupied);
+                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 0 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
+                obstacle.GetComponent<ObstacleScript>().Initialize(grid0[row, col]);
+                grid0[row, col].GetComponent<GridCellScript>().IsOccupied = true;
+                obstacles.Add(obstacle);
+            }
+            for (int i = 0; i < nbrObstacles; ++i)
+            {
+                int row;
+                int col;
+                do
+                {
+                    row = (int)(Random.value * WORLD_SIZE);
+                    col = (int)(Random.value * WORLD_SIZE);
+                } while (grid1[row, col].GetComponent<GridCellScript>().IsOccupied);
 
-            //    GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 1 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
-            //    obstacle.GetComponent<ObstacleScript>().Initialize(grid1[row, col]);
-            //    grid1[row, col].GetComponent<GridCellScript>().IsOccupied = true;
-            //    obstacles.Add(obstacle);
-            //}
-            //for (int i = 0; i < nbrObstacles; ++i)
-            //{
-            //    int row;
-            //    int col;
-            //    do
-            //    {
-            //        row = (int)(Random.value * WORLD_SIZE);
-            //        col = (int)(Random.value * WORLD_SIZE);
-            //    } while (grid2[row, col].GetComponent<GridCellScript>().IsOccupied);
+                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 1 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
+                obstacle.GetComponent<ObstacleScript>().Initialize(grid1[row, col]);
+                grid1[row, col].GetComponent<GridCellScript>().IsOccupied = true;
+                obstacles.Add(obstacle);
+            }
+            for (int i = 0; i < nbrObstacles; ++i)
+            {
+                int row;
+                int col;
+                do
+                {
+                    row = (int)(Random.value * WORLD_SIZE);
+                    col = (int)(Random.value * WORLD_SIZE);
+                } while (grid2[row, col].GetComponent<GridCellScript>().IsOccupied);
 
-            //    GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 2 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
-            //    obstacle.GetComponent<ObstacleScript>().Initialize(grid2[row, col]);
-            //    grid2[row, col].GetComponent<GridCellScript>().IsOccupied = true;
-            //    obstacles.Add(obstacle);
-            //}
+                GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(row + 2 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
+                obstacle.GetComponent<ObstacleScript>().Initialize(grid2[row, col]);
+                grid2[row, col].GetComponent<GridCellScript>().IsOccupied = true;
+                obstacles.Add(obstacle);
+            }
 
             // Create agents and put on empty cells
             for (int i = 0; i < AGENT_NUMBER; ++i)
@@ -277,27 +284,33 @@ namespace Assets.Scripts
             }
         }
 
-        public void UpdateNodeCount(SearchType type, int enq, int deq)
+        public void UpdateNodeCount(SearchType type, int enq, int deq, int coins)
         {
             switch (type)
             {
                 case SearchType.Djikstras:
                     DjikEnq += enq;
                     DjikDeq += deq;
+                    DjikCoin += coins;
                     DjikstrasEnqueued.text = enqueueBase + DjikEnq;
                     DjikstrasDequeued.text = dequeueBase + DjikDeq;
+                    DjikstraCoins.text = coinsBase + DjikCoin;
                     break;
                 case SearchType.BestFirst:
                     BeFiEnq += enq;
                     BeFiDeq += deq;
+                    BeFiCoin += coins;
                     BestFirstEnqueued.text = enqueueBase + BeFiEnq;
                     BestFirstDequeued.text = dequeueBase + BeFiDeq;
+                    BestFirstCoins.text = coinsBase + BeFiCoin;
                     break;
                 case SearchType.AStar:
                     AStaEnq += enq;
                     AStaDeq += deq;
+                    AStaCoin += coins;
                     AStarEnqueued.text = enqueueBase + AStaEnq;
                     AStarDequeued.text = dequeueBase + AStaDeq;
+                    AStarCoins.text = coinsBase + AStaCoin;
                     break;
             }
         }
