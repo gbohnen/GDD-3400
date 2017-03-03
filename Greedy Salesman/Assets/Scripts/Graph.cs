@@ -215,7 +215,7 @@ namespace Assets.Scripts
                 // pop off first item in queue, store as current node
                 Node currNode = priorityQueue[0];
                 priorityQueue.RemoveAt(0);
-                currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
+                //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
                 deq++;
 
                 // if goal, calculate path
@@ -226,7 +226,7 @@ namespace Assets.Scripts
                     path.Add(currNode.Cell);
 
                     // Set the current cell to cyan (so we can see the path)
-                    currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                    //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
 
                     // While there is a backpath from the current cell to the previous cell
                     while (currNode.BackPath != null)
@@ -235,7 +235,7 @@ namespace Assets.Scripts
                         path.Insert(0, currNode.Cell);
 
                         // Set the current cell to cyan (so we can see the path)
-                        currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                        //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
 
                         // Move to the previous node in the backpath
                         currNode = currNode.BackPath;
@@ -312,7 +312,7 @@ namespace Assets.Scripts
                 // pop off first item in queue, store as current node
                 Node currNode = priorityQueue[0];
                 priorityQueue.RemoveAt(0);
-                currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
+                //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
                 deq++;
 
                 // if goal, calculate path
@@ -323,7 +323,7 @@ namespace Assets.Scripts
                     path.Add(currNode.Cell);
 
                     // Set the current cell to cyan (so we can see the path)
-                    currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                    //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
 
                     // While there is a backpath from the current cell to the previous cell
                     while (currNode.BackPath != null)
@@ -332,7 +332,7 @@ namespace Assets.Scripts
                         path.Insert(0, currNode.Cell);
 
                         // Set the current cell to cyan (so we can see the path)
-                        currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                        //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
 
                         // Move to the previous node in the backpath
                         currNode = currNode.BackPath;
@@ -354,7 +354,7 @@ namespace Assets.Scripts
                         edge.End.Distance = currNode.Distance + edge.Length;        // update distance
                         edge.End.BackPath = currNode;                               // set back-pointer
                         priorityQueue.Add(edge.End);                                // add neighbor to queue
-                        edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                        //edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
                         enq++;
                     }
                     else
@@ -411,7 +411,7 @@ namespace Assets.Scripts
                 // pop off first item in queue, store as current node
                 Node currNode = priorityQueue[0];
                 priorityQueue.RemoveAt(0);
-                currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
+                //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
                 deq++;
 
                 // if goal, calculate path
@@ -422,7 +422,7 @@ namespace Assets.Scripts
                     path.Add(currNode.Cell);
 
                     // Set the current cell to cyan (so we can see the path)
-                    currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                    //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
 
                     // While there is a backpath from the current cell to the previous cell
                     while (currNode.BackPath != null)
@@ -431,7 +431,7 @@ namespace Assets.Scripts
                         path.Insert(0, currNode.Cell);
 
                         // Set the current cell to cyan (so we can see the path)
-                        currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                        //currNode.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
 
                         // Move to the previous node in the backpath
                         currNode = currNode.BackPath;
@@ -451,7 +451,7 @@ namespace Assets.Scripts
                         edge.End.Priority = EstimateDistance(goalCell, edge.End.Cell);        // update distance
                         edge.End.BackPath = currNode;                               // set back-pointer
                         priorityQueue.Add(edge.End);                                // add neighbor to queue
-                        edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                        //edge.End.Cell.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
                         enq++;
                     }
                     else

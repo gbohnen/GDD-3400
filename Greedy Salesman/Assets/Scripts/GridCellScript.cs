@@ -33,11 +33,11 @@ namespace Assets.Scripts
 				isOccupied = value;
 				if (isOccupied)
 				{
-					gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+					//gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
 				}
 				else
 				{
-					gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+					//gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
 				}
 			}
 		}
@@ -56,11 +56,11 @@ namespace Assets.Scripts
 				isTargeted = value;
 				if (isTargeted)
 				{
-					gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+					//gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
 				}
 				else
 				{
-					gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+					//gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,8 +34,6 @@ namespace Assets.Scripts
         public InputField coinInput;
         public Text calcTimeText;
         public Text circuitLengthText;
-
-		private float timer;
 
 		public GameManagerScript()
 		{
@@ -162,28 +161,20 @@ namespace Assets.Scripts
                 agents.Add(newAgent);
             }
 
-            Graph graph = new Graph();
-            graph.Initialize(grid0);
+            Stopwatch st = new Stopwatch();
+
+            st.Start();
 
             // initialize edge matrix
-            edgeMatrix = new EdgeMatrix(agents[0].GetComponent<AgentScript>().currentCell, coinPlacements, graph);
+            edgeMatrix = new EdgeMatrix(agents[0].GetComponent<AgentScript>().currentCell, coinPlacements, grid0);
 
-            agents[0].GetComponent<AgentScript>().matrix = edgeMatrix;
+            st.Stop();
+
+            calcTimeText.text = st.ElapsedMilliseconds.ToString();
 
             // pass the edgeMatrix off to the agent
-
-            //// get a random path
-            //List<GameObject> path = edgeMatrix[agents[0].GetComponent<AgentScript>().currentCell, coinPlacements[2]];
-
-            ////Debug.Log(edgeMatrix.GetPathCount());
-            ////Debug.Log(path.Count);
-
-            //foreach (GameObject gm in path)
-            //{
-            //    Debug.Log(gm.transform.position);
-            //}
-
-		}
+            agents[0].GetComponent<AgentScript>().matrix = edgeMatrix;
+        }
 
 		// Update is called once per frame
 		void Update()
@@ -231,6 +222,13 @@ namespace Assets.Scripts
                 coinsWindow.blocksRaycasts = true;
             }
         }
+
+        public void UpdateCircuit(int i)
+        {
+            int count = int.Parse(circuitLengthText.text);
+            count += i;
+            circuitLengthText.text = count.ToString();
+        } 
 
         //public void UpdateNodeCount(SearchType type, int enq, int deq, int coins)
         //{

@@ -9,7 +9,7 @@ namespace Assets.Scripts
 	public class AgentScript : MonoBehaviour
 	{
 		public GameObject currentCell;
-        public GameObject startCell;
+        public GameObject homeCell;
 		List<GameObject> path;
 
         SearchType type;
@@ -30,7 +30,8 @@ namespace Assets.Scripts
 				FsmGameObject targetCell = basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell");
 				currentCell = targetCell.Value;
 				currentCell.GetComponent<GridCellScript>().IsOccupied = true;
-				if (path.Count > 0)
+                currentCell.gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                if (path.Count > 0)
 				{
 					// If the next node is occupied, terminate movement
 					if (path[0].GetComponent<GridCellScript>().IsOccupied)
@@ -60,85 +61,60 @@ namespace Assets.Scripts
 		/// </summary>
 		public void CalculateCoinPath()
 		{
-            // TODO: Modify this method to take the Target Coin object from Playmaker and do a breadthfirstsearch for it
-
             // get the closest coin object
             GameObject closestCoin = basicMovementFSM.FsmVariables.GetFsmGameObject("Target Coin").Value;
 
-            Debug.Log(closestCoin);
+            // set target equal to that cell
+            basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value = closestCoin.GetComponent<CoinScript>().currentCell;
 
-            // set path equal to next coin, using the pre-computed edge matrix
-            //if (closestCoin == null)
-            //{
-            //    // if the closest coin is null, head home
-            //    path = matrix[currentCell, startCell];
-            //    GetNextPoint();
-            //}
-            //else
+            // guard against grid conflicts
+            // if the distance is less than the world offset
+            if ((basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position - currentCell.transform.position).magnitude < GameManagerScript.WORLD_SIZE)
             {
+                // set path equal to next coin, using the pre-computed edge matrix
                 // get the path to the closest coin
-                path = matrix[currentCell, closestCoin];
-                GetNextPoint();
+                path = matrix[currentCell, closestCoin.GetComponent<CoinScript>().currentCell];
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateCircuit(path.Count);
             }
 
+            if (basicMovementFSM.FsmVariables.FindFsmBool("Finished Moving") != null)
+            {
+                FsmBool isFinishedMoving = basicMovementFSM.FsmVariables.GetFsmBool("Finished Moving");
+                isFinishedMoving.Value = false;
+            }
 
-
-
-            // depracated code from last assignment
-                //// set target equal to that cell
-            //    basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value = closestCoin.GetComponent<CoinScript>().currentCell;
-
-
-
-
-            //    // guard against grid conflicts
-            //    // if the distance is less than the world offset
-            //    if ((basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position - currentCell.transform.position).magnitude < GameManagerScript.WORLD_SIZE)
-            //    {
-            //        switch (type)
-            //        {
-            //            case SearchType.BreadthFirst:
-            //                path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-            //                break;
-            //            case SearchType.Djikstras:
-            //                path = graph.DjikstrasSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-            //                break;
-            //            case SearchType.AStar:
-            //                path = graph.AStarSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-            //                break;
-            //            case SearchType.BestFirst:
-            //                path = graph.BestFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-            //                break;
-            //            default:
-            //                path = graph.BreadthFirstSearch(currentCell, basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value);
-            //                break;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        //pick a random neighbor if the path is invalid
-            //        if (path.Count == 0)
-            //        {
-            //            int neighbor;
-            //            do
-            //            {
-            //                neighbor = Random.Range(0, currentCell.GetComponent<GridCellScript>().neighbors.Count);
-            //            } while (currentCell.GetComponent<GridCellScript>().neighbors[neighbor].GetComponent<GridCellScript>().IsOccupied);
-
-            //            path.Add(currentCell.GetComponent<GridCellScript>().neighbors[neighbor]);
-            //        }
-            //    }
-
-            //    if (basicMovementFSM.FsmVariables.FindFsmBool("Finished Moving") != null)
-            //    {
-            //        FsmBool isFinishedMoving = basicMovementFSM.FsmVariables.GetFsmBool("Finished Moving");
-            //        isFinishedMoving.Value = false;
-            //    }
-
-            //    GetNextPoint();
-            //}
+            GetNextPoint();
         }
 
+        /// <summary>
+        /// Calculate the shortest path to the closest coin
+        /// </summary>
+        public void CalculateHomePath()
+        {
+            // set target equal to that cell
+            basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value = homeCell;
+
+            if (homeCell != currentCell)
+            {
+                // guard against grid conflicts
+                // if the distance is less than the world offset
+                if ((basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position - currentCell.transform.position).magnitude < GameManagerScript.WORLD_SIZE)
+                {
+                    // set path equal to next coin, using the pre-computed edge matrix
+                    // get the path to the closest coin
+                    path = matrix[currentCell, homeCell];
+                    GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateCircuit(path.Count);
+                }
+
+                if (basicMovementFSM.FsmVariables.FindFsmBool("Finished Moving") != null)
+                {
+                    FsmBool isFinishedMoving = basicMovementFSM.FsmVariables.GetFsmBool("Finished Moving");
+                    isFinishedMoving.Value = false;
+                }
+
+                GetNextPoint();
+            }
+        }
         /// <summary>
         /// Initialize the agent
         /// </summary>
@@ -150,7 +126,7 @@ namespace Assets.Scripts
 
 			path = new List<GameObject>();
 			currentCell = startCell;
-            this.startCell = startCell;
+            homeCell = startCell;
 			currentCell.GetComponent<GridCellScript>().IsOccupied = true;
 
 			graph = new Graph();
