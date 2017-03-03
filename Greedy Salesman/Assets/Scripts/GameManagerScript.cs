@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts
@@ -144,6 +145,8 @@ namespace Assets.Scripts
                 coinPlacements.Add(grid0[row, col]);
             }
 
+            GameObject agentStart = grid0[0,0];
+
             // Create agents and put on empty cells
             for (int i = 0; i < AGENT_NUMBER; ++i)
             {
@@ -158,6 +161,7 @@ namespace Assets.Scripts
                 // Create a new agent
                 GameObject newAgent = Instantiate(agentPrefab, new Vector3(row + 0 * WORLD_OFFSET, 0.5f, col), Quaternion.identity);
                 newAgent.GetComponent<AgentScript>().Initialize(grid0, grid0[row, col], SearchType.AStar);
+                agentStart = grid0[row, col];
                 agents.Add(newAgent);
             }
 
@@ -166,7 +170,8 @@ namespace Assets.Scripts
             st.Start();
 
             // initialize edge matrix
-            edgeMatrix = new EdgeMatrix(agents[0].GetComponent<AgentScript>().currentCell, coinPlacements, grid0);
+            
+            edgeMatrix = new EdgeMatrix(agentStart, coinPlacements, grid0);
 
             st.Stop();
 
@@ -229,6 +234,11 @@ namespace Assets.Scripts
             count += i;
             circuitLengthText.text = count.ToString();
         } 
+
+        public void ResetGame()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
         //public void UpdateNodeCount(SearchType type, int enq, int deq, int coins)
         //{

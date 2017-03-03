@@ -69,13 +69,13 @@ namespace Assets.Scripts
 
             // guard against grid conflicts
             // if the distance is less than the world offset
-            if ((basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position - currentCell.transform.position).magnitude < GameManagerScript.WORLD_SIZE)
-            {
+            //if ((basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position - currentCell.transform.position).magnitude < GameManagerScript.WORLD_SIZE)
+            //{
                 // set path equal to next coin, using the pre-computed edge matrix
                 // get the path to the closest coin
                 path = matrix[currentCell, closestCoin.GetComponent<CoinScript>().currentCell];
                 GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateCircuit(path.Count);
-            }
+            //}
 
             if (basicMovementFSM.FsmVariables.FindFsmBool("Finished Moving") != null)
             {
@@ -98,13 +98,13 @@ namespace Assets.Scripts
             {
                 // guard against grid conflicts
                 // if the distance is less than the world offset
-                if ((basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position - currentCell.transform.position).magnitude < GameManagerScript.WORLD_SIZE)
-                {
+                //if ((basicMovementFSM.FsmVariables.GetFsmGameObject("Target Cell").Value.transform.position - currentCell.transform.position).magnitude < GameManagerScript.WORLD_SIZE)
+                //{
                     // set path equal to next coin, using the pre-computed edge matrix
                     // get the path to the closest coin
                     path = matrix[currentCell, homeCell];
                     GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagerScript>().UpdateCircuit(path.Count);
-                }
+                //}
 
                 if (basicMovementFSM.FsmVariables.FindFsmBool("Finished Moving") != null)
                 {

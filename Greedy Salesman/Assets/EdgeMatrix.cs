@@ -37,7 +37,8 @@ public class EdgeMatrix {
         pathsDictionary = new Dictionary<PathKey, List<GameObject>>();
 
         // insert start location at 0-index of list
-        tiles.Insert(0, start);
+        tiles.Insert(0, start.gameObject);
+        start.GetComponent<GridCellScript>().IsOccupied = false;
 
         // generate paths for each member of the list
         int count = tiles.Count;
@@ -75,6 +76,8 @@ public class EdgeMatrix {
     {
         get
         {
+            //foreach (GameObject gm in pathsDictionary[new PathKey(start.GetInstanceID(), end.GetInstanceID())])
+            //    Debug.Log(gm.transform.position);
             return pathsDictionary[new PathKey(start.GetInstanceID(), end.GetInstanceID())];
         }
     }
