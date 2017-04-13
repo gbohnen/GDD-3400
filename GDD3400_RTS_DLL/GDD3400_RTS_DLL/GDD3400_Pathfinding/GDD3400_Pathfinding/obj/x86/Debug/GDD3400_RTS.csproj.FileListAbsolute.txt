@@ -1,0 +1,129 @@
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\barracks.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\base.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\mine.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\peon.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\refinery.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\soldier.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\wall.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeSmall.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeLarge.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.pdb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe.CodeAnalysisLog.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe.lastcodeanalysissucceeded
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_RTS.csprojResolveAssemblyReference.cache
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_Pathfinding.exe
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_Pathfinding.pdb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_PlanningAgent_Lib.pdb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.pdb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\barracks.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\base.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\mine.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\peon.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\refinery.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\soldier.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\wall.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeSmall.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeLarge.xnb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.pdb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe.CodeAnalysisLog.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe.lastcodeanalysissucceeded
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_PlanningAgent_Lib.pdb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.pdb
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_RTS.csprojResolveAssemblyReference.cache
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_Pathfinding.exe
+C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_Pathfinding.pdb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\barracks.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\base.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\mine.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\peon.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\refinery.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\soldier.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\wall.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeSmall.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeLarge.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.pdb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe.CodeAnalysisLog.xml
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe.lastcodeanalysissucceeded
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.dll
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_PlanningAgent_Lib.pdb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.xml
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_RTS.csprojResolveAssemblyReference.cache
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_Pathfinding.exe
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_Pathfinding.pdb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeExtraLarge.xnb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.pdb
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.xml
+D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.dll
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\barracks.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\base.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\mine.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\peon.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\refinery.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\soldier.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\wall.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeSmall.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeLarge.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeExtraLarge.xnb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.pdb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe.CodeAnalysisLog.xml
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_Pathfinding.exe.lastcodeanalysissucceeded
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.dll
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.dll
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_PlanningAgent_Lib.pdb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.pdb
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\GDD3400_RTS_Lib.xml
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.xml
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_RTS.csprojResolveAssemblyReference.cache
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_Pathfinding.exe
+C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Debug\GDD3400_Pathfinding.pdb

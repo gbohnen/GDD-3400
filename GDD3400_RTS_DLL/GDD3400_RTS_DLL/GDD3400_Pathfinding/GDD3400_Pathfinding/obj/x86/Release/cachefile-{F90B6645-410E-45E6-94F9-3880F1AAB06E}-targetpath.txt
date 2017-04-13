@@ -1,0 +1,9 @@
+Content\Sprites\barracks.xnb
+Content\Sprites\base.xnb
+Content\Sprites\mine.xnb
+Content\Sprites\peon.xnb
+Content\Sprites\refinery.xnb
+Content\Sprites\soldier.xnb
+Content\Sprites\wall.xnb
+Content\Fonts\SegoeSmall.xnb
+Content\Fonts\SegoeLarge.xnb

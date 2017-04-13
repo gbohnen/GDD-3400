@@ -1,0 +1,833 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GDD3400_RTS_Lib</name>
+    </assembly>
+    <members>
+        <member name="F:GDD3400_RTS_Lib.Agent.debugger">
+            <summary>
+            Visual debugger that displays a list of strings
+            to the XNA window
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Agent.#ctor">
+            <summary>
+            Agent Constructor, initializes the agent with the starting gold.
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.Agent.AgentNbr">
+            <summary>
+            AgentNbr - an integer representing which agent this is
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.Agent.Gold">
+            <summary>
+            The amount of gold the agent currently has
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.Agent.ResourceBonus">
+            <summary>
+            Resource bonus for refineries - NOT IMPLEMENTED
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.Agent.BasePosition">
+            <summary>
+            Position of the agent's base
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.Agent.Color">
+            <summary>
+            Screen color of the agent
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Agent.Move(GDD3400_RTS_Lib.UnitSprite,Microsoft.Xna.Framework.Point)">
+            <summary>
+            Command to move a unit to an arbitrary point on the grid
+            </summary>
+            <param name="unitSprite">the unit to move</param>
+            <param name="target">the point to move to</param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Agent.Build(GDD3400_RTS_Lib.UnitSprite,Microsoft.Xna.Framework.Point,GDD3400_RTS_Lib.UnitType)">
+            <summary>
+            Command to send a unit to build another unit at a particular point
+            on the grid
+            </summary>
+            <param name="unitSprite">the building unit</param>
+            <param name="target">the location to build the new unit</param>
+            <param name="unitType">the new type of unit to build</param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Agent.Gather(GDD3400_RTS_Lib.UnitSprite,GDD3400_RTS_Lib.ResourceSprite,GDD3400_RTS_Lib.UnitSprite)">
+            <summary>
+            Command to send a unit to gather resources from a particular resource
+            </summary>
+            <param name="unitSprite">the gathering unit</param>
+            <param name="resourceSprite">the resource to gather</param>
+            <param name="baseSprite">the base to return the resource to</param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Agent.Train(GDD3400_RTS_Lib.UnitSprite,GDD3400_RTS_Lib.UnitType)">
+            <summary>
+            Command to train a unit
+            </summary>
+            <param name="unitSprite">unit that will do the training</param>
+            <param name="unitType">type of unit to train</param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Agent.Attack(GDD3400_RTS_Lib.UnitSprite,GDD3400_RTS_Lib.UnitSprite)">
+            <summary>
+            Command to attack another unit
+            </summary>
+            <param name="unitSprite">unit that will do the attacking</param>
+            <param name="target">unit to attack</param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Agent.AnalyzeTerrain(GDD3400_RTS_Lib.GameState)">
+            <summary>
+            Analyzes the Terrain at the beginning of the game
+            </summary>
+            <param name="gameState"></param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Agent.Update(Microsoft.Xna.Framework.GameTime,GDD3400_RTS_Lib.GameState)">
+            <summary>
+            Update the agent - base class has no implementation, intended
+            to be overridden by derived classes.
+            </summary>
+            <param name="gameTime">elapsed game time</param>
+            <param name="gameState">current state of the game</param>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.ResourceType">
+            <summary>
+            Types of resources
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.ResourceType.OBSTACLE">
+            <summary>
+            OBSTACLE - NOT IMPLEMENTED
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.ResourceType.MINE">
+            <summary>
+            MINE - gold mine
+            </summary>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.UnitType">
+            <summary>
+            Type of agent-controlled unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitType.PEON">
+            <summary>
+            PEON - a unit to gather resources or build things
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitType.SOLDIER">
+            <summary>
+            SOLDIER - an attack unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitType.BASE">
+            <summary>
+            BASE - a unit to return collected resources or
+            train PEONs
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitType.BARRACKS">
+            <summary>
+            BARRACKS - a unit to train SOLDIERs
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitType.REFINERY">
+            <summary>
+            REFINERY - a bonus to resource collection and storage
+            BONUS NOT IMPLEMENTED
+            </summary>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.UnitAction">
+            <summary>
+            UnitAction - actions units can take
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitAction.IDLE">
+            <summary>
+            IDLE - unit has nothing to do
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitAction.MOVE">
+            <summary>
+            MOVE - moving to an arbitrary point
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitAction.TRAIN">
+            <summary>
+            TRAIN - training a new unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitAction.BUILD">
+            <summary>
+            BUILD - building a new unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitAction.GATHER">
+            <summary>
+            GATHER - gathering a resource
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UnitAction.ATTACK">
+            <summary>
+            ATTACK - attacking a unit
+            </summary>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.GatherPhase">
+            <summary>
+            GatherPhase - phases of the gathering action
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.GatherPhase.TO_MINE">
+            <summary>
+            TO_MINE - moving to the resource
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.GatherPhase.MINING">
+            <summary>
+            MINING - collecting the resource
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.GatherPhase.TO_BASE">
+            <summary>
+            TO_BASE - returning to base
+            </summary>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.BuildPhase">
+            <summary>
+            BuildPhase - phases of the building action
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.BuildPhase.TO_POSITION">
+            <summary>
+            TO_POSITION - moving to the position where 
+            the unit will be built
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.BuildPhase.BUILDING">
+            <summary>
+            BUILDING - building the unit
+            </summary>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.AttackPhase">
+            <summary>
+            AttackPhase - phases of the attack action
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.AttackPhase.TO_UNIT">
+            <summary>
+            TO_UNIT - moving to the unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.AttackPhase.ATTACKING">
+            <summary>
+            ATTACKING - attacking the unit
+            </summary>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.Constants">
+            <summary>
+            Constants - set of game-defining constants.
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.GAME_SPEED">
+            <summary>
+            GAME_SPEED - NOT IMPLEMENTED
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.WORLD_WIDTH">
+            <summary>
+            WORLD_WIDTH - width of XNA window in pixels
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.WORLD_HEIGHT">
+            <summary>
+            WORLD_HEIGHT - height of XNA window in pixels
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.CELL_SIZE">
+            <summary>
+            CELL_SIZE - size of an individual gridcell (height or width)
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.HALF_CELL_SIZE">
+            <summary>
+            HALF_CELL_SIZE - half of a cell size to save some math
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.SCALE">
+            <summary>
+            SCALE - scale of GUI elements
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.NUMBER_PLAYERS">
+            <summary>
+            NUMBER_PLAYERS - number of on-screen agents (not units...)
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.GRID_WIDTH">
+            <summary>
+            GRID_WIDTH - number of grid cells wide (Y-dimension)
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.GRID_HEIGHT">
+            <summary>
+            GRID_HEIGHT - number of grid cells high (X-dimension)
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.START_GOLD">
+            <summary>
+            START_GOLD - gold that agents should start with
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.BACKGROUND_COLOR">
+            <summary>
+            BACKGROUND_COLOR - color of background
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.USE_TERRAIN_SEED">
+            <summary>
+            True to use a hard-coded seed, false otherwise
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.TERRAIN_SEED">
+            <summary>
+            Seed to use for GameManager's random number generator
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.SHOW_PATHFINDING">
+            <summary>
+            SHOW_PATHFINDING - draw a line representing the
+            ultimate target location of this unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.SHOW_BUILDABLE">
+            <summary>
+            SHOW_BUILDABLE - show the non-buildable tiles in purple
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.SHOW_TIMERS">
+            <summary>
+            SHOW_TIMERS - display individual unit timers, health, etc.
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.SHOW_MESSAGES">
+            <summary>
+            SHOW_MESSAGES - display the visual debugger info
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.SHOW_INFLUENCE">
+            <summary>
+            SHOW_INFLUENCE - display the influence of each cell
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.MOVING_SPEED">
+            <summary>
+            Speed at which each unit moves
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.MINING_SPEED">
+            <summary>
+            Speed at which each unit mines resources
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.COST">
+            <summary>
+            Cost to build each unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.CREATION_TIME">
+            <summary>
+            Time to create each unit in seconds
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.MINING_TIME">
+            <summary>
+            Time to create each unit in seconds
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.DEPENDENCY">
+            <summary>
+            Dependencies of each unit in order to build/train them
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.BUILDS">
+            <summary>
+            Set of units built by each unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.TRAINS">
+            <summary>
+            Set of units trained by each unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.VALUE">
+            <summary>
+            Initial value associated with each unit
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.CAN_MOVE">
+            <summary>
+            Which units can move
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.CAN_BUILD">
+            <summary>
+            Which units can build
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.CAN_TRAIN">
+            <summary>
+            Which units can train
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.CAN_ATTACK">
+            <summary>
+            Which units can attack
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.CAN_GATHER">
+            <summary>
+            Which units can gather
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.Constants.ATTACK_RANGE">
+            <summary>
+            Speed at which each unit moves
+            </summary>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.GameManager">
+            <summary>
+            This is the main type for your game
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GameManager.#ctor(System.Collections.Generic.List{GDD3400_RTS_Lib.Agent})">
+            <summary>
+            Manager of the game - establishes game parameters from Constants
+            </summary>
+            <param name="agents"></param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GameManager.Initialize">
+            <summary>
+            Allows the game to perform any initialization it needs to before starting to run.
+            This is where it can query for any required services and load any non-graphic
+            related content.  Calling base.Initialize will enumerate through any components
+            and initialize them as well.
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GameManager.LoadContent">
+            <summary>
+            LoadContent will be called once per game and is the place to load
+            all of your content.
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GameManager.UnloadContent">
+            <summary>
+            UnloadContent will be called once per game and is the place to unload
+            all content.
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GameManager.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Allows the game to run logic such as updating the world,
+            checking for collisions, gathering input, and playing audio.
+            </summary>
+            <param name="gameTime">Provides a snapshot of timing values.</param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GameManager.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            This is called when the game should draw itself.
+            </summary>
+            <param name="gameTime">Provides a snapshot of timing values.</param>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.GameState">
+            <summary>
+            Current state of the game
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.GameState.Units">
+            <summary>
+            Set of active units in the game
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.GameState.Resources">
+            <summary>
+            Set of active resources in the game
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.GameState.Grid">
+            <summary>
+            Grid that represents the game
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GameState.#ctor(GDD3400_RTS_Lib.GridCell[0:,0:],System.Collections.Generic.List{GDD3400_RTS_Lib.UnitSprite},System.Collections.Generic.List{GDD3400_RTS_Lib.ResourceSprite})">
+            <summary>
+            Constructor for the GameState
+            </summary>
+            <param name="grid">game grid</param>
+            <param name="units">set of units</param>
+            <param name="resources">set of resources</param>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.GridCell">
+            <summary>
+            Gridcell of the game - draws a rectangle onscreen and stores
+            whether the cell is buildable, its position, etc.
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.GridCell.IsBuildable">
+            <summary>
+            Is the gridcell buildable
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.GridCell.Position">
+            <summary>
+            Position of the gridcell
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.GridCell.Influence">
+            <summary>
+            Influence value - used to represent the influence
+            of units on this cell, range 0->1.
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.GridCell.Color">
+            <summary>
+            Color of the gridcell
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GridCell.ChangeColor(Microsoft.Xna.Framework.Color)">
+            <summary>
+            Change the color of the gridcell - can be used for debugging
+            </summary>
+            <param name="color"></param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GridCell.Buildable">
+            <summary>
+            Is the gridcell buildable
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GridCell.#ctor(Microsoft.Xna.Framework.Game,Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,System.Int32)">
+            <summary>
+            Constructor for a gridcell
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.GridCell.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Draw the grid cell
+            </summary>
+            <param name="gameTime"></param>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.ResourceSprite">
+            <summary>
+            ResourceSprite - renderable resource
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.ResourceSprite.ResourceType">
+            <summary>
+            Type of this resource
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.ResourceSprite.Value">
+            <summary>
+            Amount of gold or whatever in this resource
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.ResourceSprite.ResourceNbr">
+            <summary>
+            Unique number of this resource
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.ResourceSprite.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update the Resourcesprite
+            </summary>
+            <param name="gameTime"></param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.ResourceSprite.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Draw the resource to the screen
+            </summary>
+            <param name="gameTime"></param>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.Sprite">
+            <summary>
+            Sprites with positions and colors
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Sprite.#ctor(Microsoft.Xna.Framework.Game,Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Sprite constructor
+            </summary>
+            <param name="game">GameManager</param>
+            <param name="texture">sprite's texture</param>
+            <param name="position">sprite's position</param>
+            <param name="color">color</param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Sprite.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Draw the sprite
+            </summary>
+            <param name="gameTime"></param>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.Tools">
+            <summary>
+            Convenient tools for converting between the gridcell's number,
+            the world's vector2 positions, and the grid's Point positions
+            GridCells are numbered to make them easy to compare
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.WorldToGrid(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Convert a vector2 to a point in the grid
+            </summary>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.GridToWorld(Microsoft.Xna.Framework.Point)">
+            <summary>
+            Convert a point in the grid to a vector2
+            </summary>
+            <param name="gridPosition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.GridToInt(Microsoft.Xna.Framework.Point)">
+            <summary>
+            Convert a point in the grid to the gridcell's number
+            </summary>
+            <param name="gridPosition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.IntToGrid(System.Int32)">
+            <summary>
+            Convert a gridcell's number to a point in the grid
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.WorldToInt(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Convert a vector2 to a gridcell's number
+            </summary>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.IntToWorld(System.Int32)">
+            <summary>
+            Convert a gridcell's number to a vector2
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.SafeNormalize(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Safely normalize a vector2, preventing divide
+            by zero errors or infinitely large vectors
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.IsValidWorldLocation(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Is the vector2 a valid position in the world
+            </summary>
+            <param name="position">position to test</param>
+            <returns>true if in the world</returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.IsValidGridLocation(Microsoft.Xna.Framework.Point)">
+            <summary>
+            Is the Point a valid position in the world
+            </summary>
+            <param name="gridPosition">position to test</param>
+            <returns>true if in the world</returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.Tools.DistanceBetweenPoints(Microsoft.Xna.Framework.Point,Microsoft.Xna.Framework.Point)">
+            <summary>
+            Determines the distance between 2 Points by converting to Vector2s first
+            </summary>
+            <param name="a">starting point</param>
+            <param name="b">ending point</param>
+            <returns>distance between starting and ending points as a float</returns>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.UIDebugger">
+            <summary>
+            Visual debugger that draws messages to the XNA window
+            </summary>
+        </member>
+        <member name="F:GDD3400_RTS_Lib.UIDebugger.messages">
+            <summary>
+            list of message to draw - make sure this isn't null
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.UIDebugger.#ctor(Microsoft.Xna.Framework.Game,Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Graphics.SpriteFont)">
+            <summary>
+            constructor
+            </summary>
+            <param name="game">gamemanager</param>
+            <param name="texture">IGNORED</param>
+            <param name="position">position to render messages</param>
+            <param name="color">color to use to render messages</param>
+            <param name="font">font to use to render messages</param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.UIDebugger.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Draw the messages
+            </summary>
+            <param name="gameTime"></param>
+        </member>
+        <member name="T:GDD3400_RTS_Lib.UnitSprite">
+            <summary>
+            UnitSprite represents a visual unit on
+            screen.
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.Speed">
+            <summary>
+            Movement speed of the unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.MiningSpeed">
+            <summary>
+            Mining speed of the unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.MiningTime">
+            <summary>
+            Time to mine a resource
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.Cost">
+            <summary>
+            Cost to train or build the unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.CreationTime">
+            <summary>
+            Time to train or build the unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.Dependencies">
+            <summary>
+            Unit dependencies that must be satisfied before
+            building or training this unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.CanMove">
+            <summary>
+            Can this unit move
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.CanBuild">
+            <summary>
+            Can this unit build others
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.CanTrain">
+            <summary>
+            Can this unit train others
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.CanAttack">
+            <summary>
+            Can this unit attack others
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.CanGather">
+            <summary>
+            Can this unit gather
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.Trains">
+            <summary>
+            Which units does this unit Train
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.Builds">
+            <summary>
+            Which units does this unit Train
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.Velocity">
+            <summary>
+            Velocity of this unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.UnitType">
+            <summary>
+            Type of this unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.CurrentAction">
+            <summary>
+            Current action of this unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.AgentNbr">
+            <summary>
+            This unit's agent number
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.UnitNbr">
+            <summary>
+            This unit's unit number (unique number)
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.BaseUnit">
+            <summary>
+            Current main base of this unit
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.MineUnit">
+            <summary>
+            Current main mine of this unit
+            null otherwise
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.AttackUnit">
+            <summary>
+            Unit that this unit is attacking
+            null otherwise
+            </summary>
+        </member>
+        <member name="P:GDD3400_RTS_Lib.UnitSprite.HitPoints">
+            <summary>
+            Current hit points of this unit
+            </summary>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.UnitSprite.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Update this unit
+            </summary>
+            <param name="gameTime"></param>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.UnitSprite.CanTrainUnit(GDD3400_RTS_Lib.UnitType)">
+            <summary>
+            CanTrainUnit asks if the current unit
+            can train the type of unit provided by the parameter
+            </summary>
+            <param name="unitToTrainType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.UnitSprite.CanBuildUnit(GDD3400_RTS_Lib.UnitType)">
+            <summary>
+            CanBuildUnit asks if the current unit
+            can build the type of unit provided by the parameter
+            </summary>
+            <param name="unitToTrainType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.UnitSprite.IsNeighbor(Microsoft.Xna.Framework.Point)">
+            <summary>
+            Is this point a neighbor of this unit
+            </summary>
+            <param name="neighbor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GDD3400_RTS_Lib.UnitSprite.Draw(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Draw this unit
+            </summary>
+            <param name="gameTime"></param>
+        </member>
+    </members>
+</doc>

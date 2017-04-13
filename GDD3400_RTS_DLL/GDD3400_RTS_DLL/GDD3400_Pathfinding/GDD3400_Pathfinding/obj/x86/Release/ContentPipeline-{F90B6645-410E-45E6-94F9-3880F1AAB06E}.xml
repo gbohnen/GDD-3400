@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Sprites\barracks.png</Source>
+      <Name>Sprites\barracks</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Sprites\barracks.xnb</Output>
+      <Time>2016-04-04T01:36:55.9570072-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\base.png</Source>
+      <Name>Sprites\base</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Sprites\base.xnb</Output>
+      <Time>2016-04-04T01:36:55.9670111-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\mine.png</Source>
+      <Name>Sprites\mine</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Sprites\mine.xnb</Output>
+      <Time>2016-04-04T01:36:55.9720301-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\peon.png</Source>
+      <Name>Sprites\peon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Sprites\peon.xnb</Output>
+      <Time>2016-04-04T01:36:55.9790084-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\refinery.png</Source>
+      <Name>Sprites\refinery</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Sprites\refinery.xnb</Output>
+      <Time>2016-04-04T01:36:55.9850088-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\soldier.png</Source>
+      <Name>Sprites\soldier</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Sprites\soldier.xnb</Output>
+      <Time>2016-04-04T01:36:55.990009-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\wall.png</Source>
+      <Name>Sprites\wall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Sprites\wall.xnb</Output>
+      <Time>2016-04-11T20:44:32.2638328-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\SegoeSmall.spritefont</Source>
+      <Name>Fonts\SegoeSmall</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Fonts\SegoeSmall.xnb</Output>
+      <Time>2016-04-21T05:28:31.0409328-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\SegoeLarge.spritefont</Source>
+      <Name>Fonts\SegoeLarge</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\Fonts\SegoeLarge.xnb</Output>
+      <Time>2016-04-21T22:43:51.2872303-06:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{F90B6645-410E-45E6-94F9-3880F1AAB06E}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_PathfindingContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-06:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-06:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-06:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-06:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-06:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-06:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2014-07-29T11:38:32.4977821-06:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
