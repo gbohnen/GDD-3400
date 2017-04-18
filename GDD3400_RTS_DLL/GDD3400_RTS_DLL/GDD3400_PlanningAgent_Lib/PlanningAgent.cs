@@ -15,14 +15,34 @@ namespace GDD3400_PlanningAgent_Lib
     // the DLL does not recognize them but you may use them within
     // the PlanningAgent class
 
-    /// <summary>
-    /// AnotherClass - just an example class, delete it if you don't
-    /// want to use it
-    /// </summary>
-    class AnotherClass
+    class GRAYS_CONSTANTS
     {
-        // Just an example class...delete this if you don't use it...
+        // maximum peon gold held
+        public Dictionary<Mood, int> PEON_GOLD_MAX = new Dictionary<Mood, int>()
+            {
+                { Mood.Passive, 50 },
+                { Mood.Defensive, 50 },
+                { Mood.Aggressive, 50 }
+            };
+
+        // barracks count
+        public Dictionary<Mood, int> BARRACKS_COUNT = new Dictionary<Mood, int>()
+            {
+                { Mood.Passive, 3 },
+                { Mood.Defensive, 3 },
+                { Mood.Aggressive, 5 }
+            };
+
+        // mine exhaustion threshold
+        public Dictionary<Mood, int> MINE_EXHAUSTION_THRESHOLD = new Dictionary<Mood, int>()
+            {
+                { Mood.Passive, 0 },
+                { Mood.Defensive, 100},
+                { Mood.Aggressive, 50 }
+            };
     }
+
+    enum Mood { Passive, Defensive, Aggressive }
 
     /// <summary>
     /// Main class for the PlanningAgent, this is the only one
@@ -30,7 +50,6 @@ namespace GDD3400_PlanningAgent_Lib
     /// </summary>
     public class PlanningAgent : Agent
     {
-        private enum Mood { Passive, Defensive, Aggressive }
 
         //Dictionary<int, UnitGoals> goals = new Dictionary<int, UnitGoals>();
         int resourceCount = int.MaxValue;
@@ -68,7 +87,7 @@ namespace GDD3400_PlanningAgent_Lib
 
         public PlanningAgent()
         {
-            AnotherClass anotherClass = new AnotherClass();
+
         }
 
         public override void AnalyzeTerrain(GameState gameState)
@@ -107,7 +126,32 @@ namespace GDD3400_PlanningAgent_Lib
             }
         }
 
+
+
         #region Private Methods
+
+        private int CheckOccupiedNeighbors(Point p)
+        {
+            if (!Tools.IsValidGridLocation(p))
+                return -1;
+            else
+            {
+                int count = 0;
+
+                for (int i = p.X - 1; i <= p.X + 1; i++)
+                {
+                    for (int j = p.Y - 1; j <= p.Y + 1; j++)
+                    {
+                        if (!Tools.IsValidGridLocation(Tools.WorldToGrid(new Vector2(i, j))) || !gameState.Grid[i, j].IsBuildable)
+                            count++;
+                    }
+                }
+
+                return count;
+            }
+        }
+
+
         private void FindClosestMine()
         {
             // If this is the first time or a mine is destroyed (Resource count has decreased)
@@ -147,6 +191,40 @@ namespace GDD3400_PlanningAgent_Lib
             return p;
         }
 
+        // finds the neighbor with the minimum given occupied neighbors within range, otherwise returns the highest possible cover
+        private Point FindCellWithOccupiedNeighbors(int minXRange, int maxXRange, int minYRange, int maxYRange, int desiredCoveredNeighbors)
+        {
+            Point p;
+            int i = 0;
+            int j = 0;
+            Point gridPosition = Tools.WorldToGrid(myBases[0].Position);
+
+            int cover = 0;
+
+            for (int x = -maxXRange; x <= maxXRange; x++)
+                for (int y = -maxYRange; y <= maxYRange; y++)
+                {
+                    if (!(Tools.DistanceBetweenPoints(new Point(x, y), Tools.WorldToGrid(myBases[0].Position)) < minXRange) || !((Tools.DistanceBetweenPoints(new Point(x, y), Tools.WorldToGrid(myBases[0].Position)) < minYRange)))
+                    {
+                        if (CheckOccupiedNeighbors(new Point(x, y)) > cover)
+                        {
+                            cover = CheckOccupiedNeighbors(new Point(x, y));
+                            i = x;
+                            j = y;
+
+                            if (cover > desiredCoveredNeighbors)
+                            {
+                                p = new Point(i, j);
+                                return p;
+                            }
+                        }
+                    }
+                }
+
+            p = new Point(i, j);
+            return p;
+        }
+
         private void ProcessPeons()
         {
             // For each peon
@@ -183,6 +261,7 @@ namespace GDD3400_PlanningAgent_Lib
                 }
             }
         }
+
         private void ProcessBases()
         {
             // Process the Base
@@ -355,7 +434,34 @@ namespace GDD3400_PlanningAgent_Lib
 
         private void ProcessPeonsPassive()
         {
+            // For each peon
+            foreach (UnitSprite unit in myPeons)
+            {
+                if (unit.CurrentAction == UnitAction.IDLE)
+                {
+                    // Test Move
+                    //Move(unit, new Point(rand.Next(Constants.GRID_HEIGHT), rand.Next(Constants.GRID_WIDTH)));
 
+                    // If we have enough gold and need a barracks, build a barracks
+                    if (Gold >= Constants.COST[(int)UnitType.BARRACKS]
+                        && myBarracks.Count < 3)
+                    {
+                        // look for point with at least 3 occupied neighbors
+                        Point toBuild = FindCellWithOccupiedNeighbors(
+                            2, Constants.GRID_HEIGHT / 2 - 4,
+                            2, Constants.GRID_WIDTH / 2 - 6,
+                            3);
+                        Build(unit, toBuild, UnitType.BARRACKS);
+                    }
+                    // we dont need a refinery
+
+                    // Ohterwise, just mine
+                    else if (mainBase != null && closestMine.Value > 0)
+                    {
+                        Gather(unit, closestMine, mainBase);
+                    }
+                }
+            }
         }
 
         private void ProcessSoldiersPassive()
