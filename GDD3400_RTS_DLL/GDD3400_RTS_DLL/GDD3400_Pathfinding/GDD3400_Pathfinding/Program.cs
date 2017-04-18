@@ -26,10 +26,10 @@ namespace GDD3400_Pathfinding
             // GDD3400_PlanningAgent_Lib project folder within this solution.
             string[] dlls =
             {
-                @"C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
-                @"C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
-                @"C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
-                @"C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll"
+                @"C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
+                @"C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
+                @"C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
+                @"C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll"
             };
 
             // For each of the DLL files, load it and then launch

@@ -2,3 +2,4 @@ C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_Library\GDD3
 C:\Users\dwortman\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_PathfindingContent\obj\x86\Debug\GDD3400_RTS_Content.contentprojResolveAssemblyReference.cache
 D:\Documents\Visual Studio 2015\Projects\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_PathfindingContent\obj\x86\Debug\GDD3400_RTS_Content.contentprojResolveAssemblyReference.cache
 C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_PathfindingContent\obj\x86\Debug\GDD3400_RTS_Content.contentprojResolveAssemblyReference.cache
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_PathfindingContent\obj\x86\Debug\GDD3400_RTS_Content.contentprojResolveAssemblyReference.cache

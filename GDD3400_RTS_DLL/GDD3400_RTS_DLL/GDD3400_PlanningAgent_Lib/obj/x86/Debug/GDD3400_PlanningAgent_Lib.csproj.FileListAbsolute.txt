@@ -75,3 +75,22 @@ C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\
 C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\obj\x86\Debug\GDD3400_PlanningAgent_Lib.dll
 C:\Users\Gray\Desktop\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\obj\x86\Debug\GDD3400_PlanningAgent_Lib.pdb
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.pdb
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_RTS_Lib.dll
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.dll
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_RTS_Lib.pdb
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_RTS_Lib.xml
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.xml
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\obj\x86\Debug\GDD3400_PlanningAgent_Lib.csprojResolveAssemblyReference.cache
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\obj\x86\Debug\GDD3400_PlanningAgent_Lib.dll
+C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\obj\x86\Debug\GDD3400_PlanningAgent_Lib.pdb

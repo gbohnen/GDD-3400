@@ -30,6 +30,8 @@ namespace GDD3400_PlanningAgent_Lib
     /// </summary>
     public class PlanningAgent : Agent
     {
+        private enum Mood { Passive, Defensive, Aggressive }
+
         //Dictionary<int, UnitGoals> goals = new Dictionary<int, UnitGoals>();
         int resourceCount = int.MaxValue;
         ResourceSprite closestMine = null;
@@ -51,6 +53,18 @@ namespace GDD3400_PlanningAgent_Lib
         List<UnitSprite> enemyBases;
         List<UnitSprite> enemyBarracks;
         List<UnitSprite> enemyRefineries;
+
+        // more fields
+        Mood currentMood = Mood.Passive;
+
+        // data for heuristic
+
+
+
+        // other planning thresholds/constants
+        const int MINE_EXHAUSTED_THRESHOLD = 0;
+        int currentGold = 0;
+        int totalGold;
 
         public PlanningAgent()
         {
@@ -197,38 +211,38 @@ namespace GDD3400_PlanningAgent_Lib
             }
         }
 
-		private void ProcessSoldiers()
-		{
-			// For each soldier, determine what they should attack
-			foreach (UnitSprite unit in mySoldiers)
-			{
-				if (unit.CurrentAction == UnitAction.IDLE)
-				{
-					if (enemySoldiers.Count > 0)
-					{
-						Attack(unit, enemySoldiers[0]);
-					}
-					else if (enemyPeons.Count > 0)
-					{
-						Attack(unit, enemyPeons[0]);
-					}
-					else if (enemyBases.Count > 0)
-					{
-						Attack(unit, enemyBases[0]);
-					}
-					else if (enemyBarracks.Count > 0)
-					{
-						Attack(unit, enemyBarracks[0]);
-					}
-					else if (enemyRefineries.Count > 0)
-					{
-						Attack(unit, enemyRefineries[0]);
-					}
-				}
-			}
-		}
+        private void ProcessSoldiers()
+        {
+            // For each soldier, determine what they should attack
+            foreach (UnitSprite unit in mySoldiers)
+            {
+                if (unit.CurrentAction == UnitAction.IDLE)
+                {
+                    if (enemySoldiers.Count > 0)
+                    {
+                        Attack(unit, enemySoldiers[0]);
+                    }
+                    else if (enemyPeons.Count > 0)
+                    {
+                        Attack(unit, enemyPeons[0]);
+                    }
+                    else if (enemyBases.Count > 0)
+                    {
+                        Attack(unit, enemyBases[0]);
+                    }
+                    else if (enemyBarracks.Count > 0)
+                    {
+                        Attack(unit, enemyBarracks[0]);
+                    }
+                    else if (enemyRefineries.Count > 0)
+                    {
+                        Attack(unit, enemyRefineries[0]);
+                    }
+                }
+            }
+        }
 
-		public void RunGame()
+        public void RunGame()
         {
             // Identify all my units
             myUnits = gameState.Units.Where(y => y.AgentNbr == AgentNbr).ToList();
@@ -261,14 +275,35 @@ namespace GDD3400_PlanningAgent_Lib
 
             FindClosestMine();
 
-            ProcessPeons();
+            // update data, apply heuristic method
+            UpdateData();
+            UpdateMood();
 
-            ProcessSoldiers();
-
-            ProcessBarracks();
-
-            ProcessBases();
-
+            // passive mode
+            if (currentMood == Mood.Passive)
+            {
+                ProcessPeonsPassive();
+                ProcessSoldiersPassive();
+                ProcessBarracksPassive();
+                ProcessBasesPassive();
+            }
+            // defensive mode
+            else if (currentMood == Mood.Defensive)
+            {
+                ProcessPeonsDefensive();
+                ProcessSoldiersDefensive();
+                ProcessBarracksDefensive();
+                ProcessBasesDefensive();
+            }
+            // aggressive mode
+            else if (currentMood == Mood.Aggressive)
+            {
+                ProcessPeonsAggressive();
+                ProcessSoldiersAggressive();
+                ProcessBarracksAggressive();
+                ProcessBasesAggressive();
+            }
+            
             if (Constants.SHOW_MESSAGES)
             {
                 lock (debugger.messages)
@@ -297,6 +332,93 @@ namespace GDD3400_PlanningAgent_Lib
                 return;
 
             RunGame();
+        }
+
+        #endregion
+
+        #region General Agent Methods
+
+        private void UpdateData()
+        {
+
+        }
+
+        private void UpdateMood()
+        {
+
+        }
+
+        #endregion
+
+
+        #region Passive Methods
+
+        private void ProcessPeonsPassive()
+        {
+
+        }
+
+        private void ProcessSoldiersPassive()
+        {
+
+        }
+
+        private void ProcessBarracksPassive()
+        {
+
+        }
+
+        private void ProcessBasesPassive()
+        {
+
+        }
+
+        #endregion
+
+        #region Defensive Methods
+
+        private void ProcessPeonsDefensive()
+        {
+
+        }
+
+        private void ProcessSoldiersDefensive()
+        {
+
+        }
+
+        private void ProcessBarracksDefensive()
+        {
+
+        }
+
+        private void ProcessBasesDefensive()
+        {
+
+        }
+
+        #endregion
+
+        #region Aggressive Methods
+
+        private void ProcessPeonsAggressive()
+        {
+
+        }
+
+        private void ProcessSoldiersAggressive()
+        {
+
+        }
+
+        private void ProcessBarracksAggressive()
+        {
+
+        }
+
+        private void ProcessBasesAggressive()
+        {
+
         }
 
         #endregion
