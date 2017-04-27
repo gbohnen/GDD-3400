@@ -141,6 +141,10 @@ namespace GDD3400_PlanningAgent_Lib
         List<UnitSprite> enemyBarracks;
         List<UnitSprite> enemyRefineries;
 
+        // influence maps
+        float[,] terrainAnalysis;
+        float[,] buildingAnalysis;
+
         // more fields
         Mood currentMood = Mood.Passive;
 
@@ -202,6 +206,55 @@ namespace GDD3400_PlanningAgent_Lib
                     }
                 }
             }
+        }
+
+
+        public float[,] CreateBuildingMap(GameState gameState)
+        {
+            float[,] gridInf = new float[gameState.Grid.GetLength(0), gameState.Grid.GetLength(1)];
+
+            // account for barrackses
+            foreach (UnitSprite unit in gameState.Units.Where(x => x.UnitType == UnitType.BARRACKS))
+            {
+                Point gridPos = Tools.WorldToGrid(unit.Position);
+                // get 3x3 grid of neighbors
+                for (int i = -1; i < 2; ++i)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        Point neighbor = new Point(gridPos.X + i, gridPos.Y + j);
+                        if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
+                        {
+                            // add influence value, use the square distance from the barracks
+                            gridInf[neighbor.X, neighbor.Y] += (1 / (Tools.DistanceBetweenPoints(gridPos, neighbor) * Tools.DistanceBetweenPoints(gridPos, neighbor)));
+                            
+                            MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
+                        }
+                    }
+                }
+            }
+
+            // account for bases
+            foreach (UnitSprite unit in gameState.Units.Where(x => x.UnitType == UnitType.BARRACKS))
+            {
+                Point gridPos = Tools.WorldToGrid(unit.Position);
+                for (int i = -2; i < 3; ++i)
+                {
+                    for (int j = -2; j < 3; j++)
+                    {
+                        Point neighbor = new Point(gridPos.X + i, gridPos.Y + j);
+                        if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
+                        {
+                            // add influence value, use the linear distance from the barracks
+                            gridInf[neighbor.X, neighbor.Y] += (1 / Tools.DistanceBetweenPoints(gridPos, neighbor));
+
+                            MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
+                        }
+                    }
+                }
+            }
+
+            return gridInf;
         }
 
 
@@ -301,12 +354,12 @@ namespace GDD3400_PlanningAgent_Lib
 
             float range = 0;
 
-            // here's the heuristic
-            range += ClampNormal(   1.0f   * (AvgDistanceFromBase(enemySoldiers)));                // check avg distance from base
-            range += ClampNormal(   1.0f   * (1 - (myPeons.Count / enemyPeons.Count)));            // check ratio of peon counts
-            range += ClampNormal(   1.0f   * (1 - (mySoldiers.Count / enemySoldiers.Count)));      // check ratio of soldier counts
-            range += ClampNormal(   1.0f   * (1 - (myBarracks.Count / enemyBarracks.Count)));      // check ratio of barrack counts
-            range += ClampNormal(   1.0f   * (1 - (Gold / GoldLeft())));                           // check ratio of our gold compared to remaining gold
+            //// here's the heuristic
+            //range += ClampNormal(   1.0f   * (AvgDistanceFromBase(enemySoldiers)));                // check avg distance from base
+            //range += ClampNormal(   1.0f   * (1 - (myPeons.Count / enemyPeons.Count)));            // check ratio of peon counts
+            //range += ClampNormal(   1.0f   * (1 - (mySoldiers.Count / enemySoldiers.Count)));      // check ratio of soldier counts
+            //range += ClampNormal(   1.0f   * (1 - (myBarracks.Count / enemyBarracks.Count)));      // check ratio of barrack counts
+            //range += ClampNormal(   1.0f   * (1 - (Gold / GoldLeft())));                           // check ratio of our gold compared to remaining gold
 
             range = ClampNormal(range / 5);                                                        // average by total factors
 
@@ -692,8 +745,6 @@ namespace GDD3400_PlanningAgent_Lib
         // Actions.Attackpeon
         void AttackPeon()
         {
-            Attack()
-
 
             Console.WriteLine(">AttackPeon");
         }

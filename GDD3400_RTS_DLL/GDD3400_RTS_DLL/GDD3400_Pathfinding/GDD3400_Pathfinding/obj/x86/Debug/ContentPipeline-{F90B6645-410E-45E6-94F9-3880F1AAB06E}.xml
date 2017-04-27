@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\barracks.xnb</Output>
-      <Time>2017-04-15T14:58:15.1114614-06:00</Time>
+      <Time>2016-04-04T01:36:55.9570072-06:00</Time>
     </Item>
     <Item>
       <Source>Sprites\base.png</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\base.xnb</Output>
-      <Time>2017-04-15T14:58:15.1119614-06:00</Time>
+      <Time>2016-04-04T01:36:55.9670111-06:00</Time>
     </Item>
     <Item>
       <Source>Sprites\mine.png</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\mine.xnb</Output>
-      <Time>2017-04-15T14:58:15.1124731-06:00</Time>
+      <Time>2016-04-04T01:36:55.9720301-06:00</Time>
     </Item>
     <Item>
       <Source>Sprites\peon.png</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\peon.xnb</Output>
-      <Time>2017-04-15T14:58:15.1124731-06:00</Time>
+      <Time>2016-05-08T14:06:46.8678038-06:00</Time>
     </Item>
     <Item>
       <Source>Sprites\refinery.png</Source>
@@ -44,7 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\refinery.xnb</Output>
-      <Time>2017-04-15T14:58:15.1129649-06:00</Time>
+      <Time>2016-04-04T01:36:55.9850088-06:00</Time>
     </Item>
     <Item>
       <Source>Sprites\soldier.png</Source>
@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\soldier.xnb</Output>
-      <Time>2017-04-15T14:58:15.1134914-06:00</Time>
+      <Time>2016-05-08T13:59:22.3021548-06:00</Time>
     </Item>
     <Item>
       <Source>Sprites\wall.png</Source>
@@ -62,7 +62,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Sprites\wall.xnb</Output>
-      <Time>2017-04-15T14:58:15.1138817-06:00</Time>
+      <Time>2016-04-11T20:44:32.2638328-06:00</Time>
     </Item>
     <Item>
       <Source>Fonts\SegoeSmall.spritefont</Source>
@@ -71,7 +71,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeSmall.xnb</Output>
-      <Time>2017-04-15T14:58:15.1109599-06:00</Time>
+      <Time>2016-05-05T02:49:34.7154841-06:00</Time>
     </Item>
     <Item>
       <Source>Fonts\SegoeLarge.spritefont</Source>
@@ -80,7 +80,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeLarge.xnb</Output>
-      <Time>2017-04-15T14:58:15.1099575-06:00</Time>
+      <Time>2016-04-21T22:43:51.2872303-06:00</Time>
     </Item>
     <Item>
       <Source>Fonts\SegoeExtraLarge.spritefont</Source>
@@ -89,7 +89,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_Pathfinding\GDD3400_Pathfinding\bin\x86\Debug\Content\Fonts\SegoeExtraLarge.xnb</Output>
-      <Time>2017-04-15T14:58:15.1094552-06:00</Time>
+      <Time>2017-04-11T00:17:29.3391906-06:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -129,8 +129,8 @@
         <Value>2011-09-01T16:22:30-06:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2017-04-17T12:56:53.9066124-06:00</Value>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2017-04-11T20:22:16.3423686-06:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
