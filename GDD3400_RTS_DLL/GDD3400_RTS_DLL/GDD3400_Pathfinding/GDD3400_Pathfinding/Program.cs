@@ -27,8 +27,6 @@ namespace GDD3400_Pathfinding
             string[] dlls =
             {
                 @"C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
-                @"C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
-                @"C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll",
                 @"C:\Users\Gray\Documents\Version Controlled\GDD-3400\GDD3400_RTS_DLL\GDD3400_RTS_DLL\GDD3400_PlanningAgent_Lib\bin\x86\Debug\GDD3400_PlanningAgent_Lib.dll"
             };
 

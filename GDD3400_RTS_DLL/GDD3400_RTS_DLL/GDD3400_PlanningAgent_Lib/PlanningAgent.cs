@@ -144,14 +144,15 @@ namespace GDD3400_PlanningAgent_Lib
         // influence maps
         float[,] terrainAnalysis;
         float[,] buildingAnalysis;
-
-        // more fields
-        Mood currentMood = Mood.Passive;
+        float[,] enemyUnitAnalysis;
+        float[,] allyUnitAnalysis;
 
         // data for heuristic
         // action pool 
         Dictionary<Action, Actions> ActionPool;
 
+        bool hasWiped = false;
+        bool buildingBarracks = false;
 
         // other planning thresholds/constants
         int currentGold = 0;
@@ -159,19 +160,20 @@ namespace GDD3400_PlanningAgent_Lib
 
         public PlanningAgent()
         {
-            ActionPool = new Dictionary<Action, Actions>()
-            {
-                { Action.AttackBuilding,    new Actions(new AgentAction(AttackBuilding)) },
-                { Action.AttackPeon,        new Actions(new AgentAction(AttackPeon)) },
-                { Action.AttackSoldier,     new Actions(new AgentAction(AttackSoldier)) },
-                { Action.BuildBarracks,     new Actions(new AgentAction(BuildBarracks)) },
-                { Action.GatherGold,        new Actions(new AgentAction(GatherGold)) },
-                { Action.TrainPeon,         new Actions(new AgentAction(TrainPeon)) },
-                { Action.TrainSoldier,      new Actions(new AgentAction(TrainSoldier)) },
-                { Action.Move,              new Actions(new AgentAction(MoveUnit)) }
-            };
+            //ActionPool = new Dictionary<Action, Actions>()
+            //{
+            //    { Action.AttackBuilding,    new Actions(new AgentAction(AttackBuilding)) },
+            //    { Action.AttackPeon,        new Actions(new AgentAction(AttackPeon)) },
+            //    { Action.AttackSoldier,     new Actions(new AgentAction(AttackSoldier)) },
+            //    { Action.BuildBarracks,     new Actions(new AgentAction(BuildBarracks)) },
+            //    { Action.GatherGold,        new Actions(new AgentAction(GatherGold)) },
+            //    { Action.TrainPeon,         new Actions(new AgentAction(TrainPeon)) },
+            //    { Action.TrainSoldier,      new Actions(new AgentAction(TrainSoldier)) },
+            //    { Action.Move,              new Actions(new AgentAction(MoveUnit)) }
+            //};
         }
 
+        // dana's example
         public override void AnalyzeTerrain(GameState gameState)
         {
             foreach (UnitSprite unit in gameState.Units)
@@ -208,6 +210,149 @@ namespace GDD3400_PlanningAgent_Lib
             }
         }
 
+        // creates influence map of terrain and resources
+        public float[,] CreateTerrainMap(GameState gameState)
+        {
+            float[,] gridInf = new float[gameState.Grid.GetLength(0), gameState.Grid.GetLength(1)];
+
+            foreach (GridCell cell in gameState.Grid)
+            {
+                if (!cell.IsBuildable)
+                {
+                    Point gridPos = Tools.WorldToGrid(cell.Position);
+
+                    for (int i = -2; i < 3; ++i)
+                    {
+                        for (int j = -2; j < 3; j++)
+                        {
+                            Point neighbor = new Point(gridPos.X + i, gridPos.Y + j);
+                            if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
+                            {
+                                gridInf[neighbor.X, neighbor.Y] += (1 / Tools.DistanceBetweenPoints(gridPos, neighbor)) / Constants.NUMBER_PLAYERS;
+                                MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (ResourceSprite resource in gameState.Resources)
+            {
+                Point gridPos = Tools.WorldToGrid(resource.Position);
+                for (int i = -2; i < 3; ++i)
+                {
+                    for (int j = -2; j < 3; j++)
+                    {
+                        Point neighbor = new Point(gridPos.X + i, gridPos.Y + j);
+                        if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
+                        {
+                            gridInf[neighbor.X, neighbor.Y] += (1 / Tools.DistanceBetweenPoints(gridPos, neighbor)) / Constants.NUMBER_PLAYERS;
+                            MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
+                        }
+                    }
+                }
+            }
+
+            return gridInf;
+        }
+
+        // enemy unit map. stronger falloff for peons than for soldiers
+        public float[,] CreateEnemyMap(GameState gameState)
+        {
+            float[,] gridInf = new float[gameState.Grid.GetLength(0), gameState.Grid.GetLength(1)];
+
+            // account for enemy peons
+            foreach (UnitSprite unit in enemyPeons)
+            {
+                Point gridPos = Tools.WorldToGrid(unit.Position);
+
+                for (int i = -1; i < 2; ++i)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        Point neighbor = new Point(gridPos.X + i, gridPos.Y + j);
+                        if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
+                        {
+                            // add influence value, use the square distance from each unit
+                            gridInf[neighbor.X, neighbor.Y] += (1 / (Tools.DistanceBetweenPoints(gridPos, neighbor) * Tools.DistanceBetweenPoints(gridPos, neighbor))) / Constants.NUMBER_PLAYERS;
+                            
+                            MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
+                        }
+                    }
+                }
+            }
+
+            // account for enemy soldiers
+            foreach (UnitSprite unit in enemySoldiers)
+            {
+                Point gridPos = Tools.WorldToGrid(unit.Position);
+
+                for (int i = -1; i < 2; ++i)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        Point neighbor = new Point(gridPos.X + i, gridPos.Y + j);
+                        if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
+                        {
+                            // add influence value, use the linear distance from each unit
+                            gridInf[neighbor.X, neighbor.Y] += (1 / Tools.DistanceBetweenPoints(gridPos, neighbor)) / Constants.NUMBER_PLAYERS;
+
+                            MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
+                        }
+                    }
+                }
+            }
+
+            return gridInf;
+        }
+
+        public float[,] CreateAllyMap(GameState gameState)
+        {
+            float[,] gridInf = new float[gameState.Grid.GetLength(0), gameState.Grid.GetLength(1)];
+
+            // account for my peons
+            foreach (UnitSprite unit in myPeons)
+            {
+                Point gridPos = Tools.WorldToGrid(unit.Position);
+
+                for (int i = -1; i < 2; ++i)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        Point neighbor = new Point(gridPos.X + i, gridPos.Y + j);
+                        if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
+                        {
+                            // add influence value, use the square distance from each unit
+                            gridInf[neighbor.X, neighbor.Y] += (1 / (Tools.DistanceBetweenPoints(gridPos, neighbor) * Tools.DistanceBetweenPoints(gridPos, neighbor))) / Constants.NUMBER_PLAYERS;
+
+                            MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
+                        }
+                    }
+                }
+            }
+
+            // account for my soldiers
+            foreach (UnitSprite unit in mySoldiers)
+            {
+                Point gridPos = Tools.WorldToGrid(unit.Position);
+
+                for (int i = -1; i < 2; ++i)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        Point neighbor = new Point(gridPos.X + i, gridPos.Y + j);
+                        if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
+                        {
+                            // add influence value, use the linear distance from each unit
+                            gridInf[neighbor.X, neighbor.Y] += (1 / Tools.DistanceBetweenPoints(gridPos, neighbor)) / Constants.NUMBER_PLAYERS;
+
+                            MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
+                        }
+                    }
+                }
+            }
+
+            return gridInf;
+        }
 
         public float[,] CreateBuildingMap(GameState gameState)
         {
@@ -226,8 +371,8 @@ namespace GDD3400_PlanningAgent_Lib
                         if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
                         {
                             // add influence value, use the square distance from the barracks
-                            gridInf[neighbor.X, neighbor.Y] += (1 / (Tools.DistanceBetweenPoints(gridPos, neighbor) * Tools.DistanceBetweenPoints(gridPos, neighbor)));
-                            
+                            gridInf[neighbor.X, neighbor.Y] += (1 / (Tools.DistanceBetweenPoints(gridPos, neighbor) * Tools.DistanceBetweenPoints(gridPos, neighbor))) / Constants.NUMBER_PLAYERS;
+
                             MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
                         }
                     }
@@ -235,7 +380,7 @@ namespace GDD3400_PlanningAgent_Lib
             }
 
             // account for bases
-            foreach (UnitSprite unit in gameState.Units.Where(x => x.UnitType == UnitType.BARRACKS))
+            foreach (UnitSprite unit in gameState.Units.Where(x => x.UnitType == UnitType.BASE))
             {
                 Point gridPos = Tools.WorldToGrid(unit.Position);
                 for (int i = -2; i < 3; ++i)
@@ -246,7 +391,7 @@ namespace GDD3400_PlanningAgent_Lib
                         if (Tools.IsValidGridLocation(neighbor) && gridPos != neighbor)
                         {
                             // add influence value, use the linear distance from the barracks
-                            gridInf[neighbor.X, neighbor.Y] += (1 / Tools.DistanceBetweenPoints(gridPos, neighbor));
+                            gridInf[neighbor.X, neighbor.Y] += (1 / Tools.DistanceBetweenPoints(gridPos, neighbor)) / Constants.NUMBER_PLAYERS;
 
                             MathHelper.Clamp(gridInf[neighbor.X, neighbor.Y], 0.0f, 1.0f);
                         }
@@ -256,11 +401,10 @@ namespace GDD3400_PlanningAgent_Lib
 
             return gridInf;
         }
-
-
+        
         #region Public Methods
 
-        public void RunGame()
+        public void RunGame(GameState gameState)
         {
             // Identify all my units
             myUnits = gameState.Units.Where(y => y.AgentNbr == AgentNbr).ToList();
@@ -282,21 +426,27 @@ namespace GDD3400_PlanningAgent_Lib
             myBases = myUnits.Where(y => y.UnitType == UnitType.BASE).ToList();
             enemyBases = enemyUnits.Where(y => y.UnitType == UnitType.BASE).ToList();
 
-            //// Identify all of my refineries
+            // Identify all of my refineries
             myRefineries = myUnits.Where(y => y.UnitType == UnitType.REFINERY).ToList();
             enemyRefineries = enemyUnits.Where(y => y.UnitType == UnitType.REFINERY).ToList();
+
+            // update relevant influence maps
+            if (terrainAnalysis == null)    
+                terrainAnalysis = CreateTerrainMap(gameState);          // terrain only needs to be analyzed once
+
+            enemyUnitAnalysis = CreateEnemyMap(gameState);
+            allyUnitAnalysis = CreateAllyMap(gameState);
+            buildingAnalysis = CreateBuildingMap(gameState);
 
             if (myBases.Count > 0)
             {
                 mainBase = myBases[0];
             }
 
-            FindClosestMine();
+            // scramble the public influence map. this is intentional
+            WipeInfluence(gameState);
 
-            // update data, apply heuristic method
-            UpdateMood();
-            UpdateActionWeights();
-            CheckForActions();
+            FindClosestMine();
 
             ProcessPeons();
             ProcessSoldiers();
@@ -326,64 +476,7 @@ namespace GDD3400_PlanningAgent_Lib
             if (gameState == null)
                 return;
 
-            RunGame();
-        }
-
-        #endregion
-
-        #region General Agent Methods
-
-        private void UpdateActionWeights()
-        {
-            // account for total gold earned, current gold, and total gold possible
-
-            // account for current peons and enemy peons
-
-            // account for current soldiers and enemy soldiers
-
-            // account for current barracks and enemy barracks
-            
-
-        }
-
-        private void UpdateMood()
-        {
-            // 0 <= x < .3 == defensive
-            // .3 <= x < .7 == passive
-            // .7 <= x <= 1 == aggressive
-
-            float range = 0;
-
-            //// here's the heuristic
-            //range += ClampNormal(   1.0f   * (AvgDistanceFromBase(enemySoldiers)));                // check avg distance from base
-            //range += ClampNormal(   1.0f   * (1 - (myPeons.Count / enemyPeons.Count)));            // check ratio of peon counts
-            //range += ClampNormal(   1.0f   * (1 - (mySoldiers.Count / enemySoldiers.Count)));      // check ratio of soldier counts
-            //range += ClampNormal(   1.0f   * (1 - (myBarracks.Count / enemyBarracks.Count)));      // check ratio of barrack counts
-            //range += ClampNormal(   1.0f   * (1 - (Gold / GoldLeft())));                           // check ratio of our gold compared to remaining gold
-
-            range = ClampNormal(range / 5);                                                        // average by total factors
-
-            if (range < .3)
-                currentMood = Mood.Defensive;
-            else if (.7f <= range)
-                currentMood = Mood.Aggressive;
-            else
-                currentMood = Mood.Passive;
-        }
-
-        // executes any actions that are at or above their thresholds
-        private void CheckForActions()
-        {
-            // for each possible action
-            foreach (Action action in Enum.GetValues(typeof(Action)))
-            {
-                // if the value for taking this action is greater than the heuristic threshold to take that action
-                if (ActionPool[action].Weight >= GRAYS_CONSTANTS.actionThresholds[new ActionThresholdKey(currentMood, action)])
-                {
-                    // fire the delegate
-                    ActionPool[action].Action();
-                }
-            }
+            RunGame(gameState);
         }
 
         #endregion
@@ -445,6 +538,14 @@ namespace GDD3400_PlanningAgent_Lib
             return dist / set.Count;
         }
 
+        public void WipeInfluence(GameState gameState)
+        {
+            foreach(GridCell cell in gameState.Grid)
+            {
+                cell.Influence = (float)rand.NextDouble();
+            }
+        }
+
         // checks how many of a given points neighbors are buildable
         private int CheckOccupiedNeighbors(Point p)
         {
@@ -491,90 +592,151 @@ namespace GDD3400_PlanningAgent_Lib
             }
         }
 
-        // finds a random cell that is buildable
-        private Point FindRandomOpenCellToBuildWithinRange(int minXRange, int maxXRange, int minYRange, int maxYRange)
+        // uses terrain map to find a location that is buildable, close to base, and has the highest local influence given
+        private Point FindLocalMaxima(Point start, int minXRange, int maxXRange, int minYRange, int maxYRange, float[,] grid)
         {
-            Point p;
-            int i = 0;
-            int j = 0;
-            Point gridPosition = Tools.WorldToGrid(myBases[0].Position);
+            Point p = start;
+            float influence = 0;
 
-            do
+            for (int i = start.X - maxXRange; i < start.X + maxXRange; i++)
             {
-                i = gridPosition.X + (rand.Next(maxXRange - minXRange) + minXRange) * (rand.Next(2) > 0 ? -1 : 1);
-                j = gridPosition.Y + (rand.Next(maxYRange - minYRange) + minYRange) * (rand.Next(2) > 0 ? -1 : 1);
-                p = new Point(i, j);
-            } while (!Tools.IsValidGridLocation(p) || !gameState.Grid[i, j].IsBuildable);// || !gameState.Grid[i, j].IsWalkable );
-
-            return p;
-        }
-
-        // finds the neighbor with the minimum given occupied neighbors within range, otherwise returns the highest possible cover
-        private Point FindCellWithOccupiedNeighbors(int minXRange, int maxXRange, int minYRange, int maxYRange, int desiredCoveredNeighbors)
-        {
-            Point p;
-            int i = 0;
-            int j = 0;
-            Point gridPosition = Tools.WorldToGrid(myBases[0].Position);
-
-            int cover = 0;
-
-            for (int x = -maxXRange; x <= maxXRange; x++)
-                for (int y = -maxYRange; y <= maxYRange; y++)
+                if (i <= start.X - minXRange || i >= start.X + minXRange)
                 {
-                    if (!(Tools.DistanceBetweenPoints(new Point(x, y), Tools.WorldToGrid(myBases[0].Position)) < minXRange) || !((Tools.DistanceBetweenPoints(new Point(x, y), Tools.WorldToGrid(myBases[0].Position)) < minYRange)))
+                    for (int j = start.Y - maxYRange; j < start.Y + maxYRange; j++)
                     {
-                        if (CheckOccupiedNeighbors(new Point(x, y)) > cover)
+                        if (i <= start.Y - minYRange || i >= start.Y + minYRange)
                         {
-                            cover = CheckOccupiedNeighbors(new Point(x, y));
-                            i = x;
-                            j = y;
+                            Point temp = new Point(i, j);
 
-                            if (cover > desiredCoveredNeighbors)
+                            if (Tools.IsValidGridLocation(temp) && gameState.Grid[i, j].IsBuildable)
                             {
-                                p = new Point(i, j);
-                                return p;
+                                if (grid[i, j] > influence)
+                                {
+                                    p = temp;
+                                    influence = grid[i, j];
+                                }
                             }
                         }
                     }
                 }
+            }
 
-            p = new Point(i, j);
             return p;
+        }
+
+        private UnitSprite FindHighestInfluenceUnit(UnitType type)
+        {
+            UnitSprite unit = null;
+            float inf = 0;
+
+            foreach (UnitSprite sprite in gameState.Units.Where(x => x.UnitType == type))
+            {
+                if (enemyUnitAnalysis[Tools.WorldToGrid(sprite.Position).X, Tools.WorldToGrid(sprite.Position).Y] > inf)
+                {
+                    unit = sprite;
+                    inf = enemyUnitAnalysis[Tools.WorldToGrid(sprite.Position).X, Tools.WorldToGrid(sprite.Position).Y];
+                }
+            }
+
+            return unit;
+        }
+
+        private UnitSprite FindLowestInfluenceUnit(UnitType type)
+        {
+            UnitSprite unit = null;
+            float inf = float.MaxValue;
+
+            foreach (UnitSprite sprite in gameState.Units.Where(x => x.UnitType == type))
+            {
+                if (enemyUnitAnalysis[Tools.WorldToGrid(sprite.Position).X, Tools.WorldToGrid(sprite.Position).Y] < inf)
+                {
+                    unit = sprite;
+                    inf = enemyUnitAnalysis[Tools.WorldToGrid(sprite.Position).X, Tools.WorldToGrid(sprite.Position).Y];
+                }
+            }
+
+            return unit;
+        }
+
+        private UnitSprite FindClosestEnemyToBase(UnitSprite targetBase)
+        {
+            UnitSprite unit = null;
+            float dist = float.MaxValue;
+
+            foreach (UnitSprite enemy in enemyUnits)
+            {
+                if (Tools.DistanceBetweenPoints(Tools.WorldToGrid(enemy.Position), Tools.WorldToGrid(targetBase.Position)) < dist)
+                {
+                    unit = enemy;
+                    dist = Tools.DistanceBetweenPoints(Tools.WorldToGrid(enemy.Position), Tools.WorldToGrid(targetBase.Position));
+                }
+            }
+
+            return unit;
+        }
+
+        private ResourceSprite LeastOccupiedOrClosestMine()
+        {
+            ResourceSprite target = gameState.Resources.First(x => x.ResourceType == ResourceType.MINE);
+
+            // sort a list by closest distance to mainbase
+            List<ResourceSprite> mines = gameState.Resources.Where(x => x.ResourceType == ResourceType.MINE).ToList();
+            mines.OrderBy(x => Vector2.Distance(x.Position, mainBase.Position));
+
+            // run the list, compare weight of occupancy vs distance, return the first one with unoccupied spots
+            foreach (ResourceSprite mine in mines)
+            {
+                if (enemyUnitAnalysis[Tools.WorldToGrid(mine.Position).X, Tools.WorldToGrid(mine.Position).Y] + allyUnitAnalysis[Tools.WorldToGrid(mine.Position).X, Tools.WorldToGrid(mine.Position).Y] < .5)
+                    return mine;
+            }
+
+            return target;
         }
 
         private void ProcessPeons()
         {
+            UnitSprite peon = null;
+
+            // build two barracks asap
+            if (Gold >= Constants.COST[(int)UnitType.BARRACKS] && myBarracks.Count < 3 && !buildingBarracks)
+            {
+                // try and grab an idle peon
+                peon = myPeons.FirstOrDefault(x => x.CurrentAction == UnitAction.IDLE && x.CanBuildUnit(UnitType.BARRACKS));
+
+                // if its null, just grab the first one that can build barracks
+                if (peon == null)
+                {
+                    myPeons.FirstOrDefault(x => x.CanBuildUnit(UnitType.BARRACKS));
+                }
+
+                if (peon.CurrentAction != UnitAction.BUILD)
+                {
+                    Point toBuild = FindLocalMaxima(Tools.WorldToGrid(mainBase.Position), 5, 15, 5, 15, terrainAnalysis);
+                    Build(peon, toBuild, UnitType.BARRACKS);
+                }
+
+                buildingBarracks = true; 
+            }
+
             // For each peon
             foreach (UnitSprite unit in myPeons)
             {
-                if (unit.CurrentAction == UnitAction.IDLE)
+                if (unit.CurrentAction == UnitAction.IDLE && unit != peon)
                 {
                     // Test Move
                     //Move(unit, new Point(rand.Next(Constants.GRID_HEIGHT), rand.Next(Constants.GRID_WIDTH)));
 
                     // If we have enough gold and need a barracks, build a barracks
                     if (Gold >= Constants.COST[(int)UnitType.BARRACKS]
-                        && myBarracks.Count < 3)
+                        && myBarracks.Count <= 3)
                     {
-                        Point toBuild = FindRandomOpenCellToBuildWithinRange(
-                            2, Constants.GRID_HEIGHT / 2 - 4,
-                            2, Constants.GRID_WIDTH / 2 - 6);
+                        Point toBuild = FindLocalMaxima(Tools.WorldToGrid(mainBase.Position), 5, 15, 5, 15, terrainAnalysis);
                         Build(unit, toBuild, UnitType.BARRACKS);
                     }
-                    // If we have enough gold and need a refinery, build a refinery
-                    else if (Gold > Constants.COST[(int)UnitType.REFINERY]
-                        && myRefineries.Count < 1 && myBarracks.Count >= 3)
+                    // Otherwise, just mine
+                    else if (mainBase != null && LeastOccupiedOrClosestMine().Value > 0)
                     {
-                        Point toBuild = FindRandomOpenCellToBuildWithinRange(
-                            2, Constants.GRID_HEIGHT / 2 - 4,
-                            2, Constants.GRID_WIDTH / 2 - 6);
-                        Build(unit, toBuild, UnitType.REFINERY);
-                    }
-                    // Ohterwise, just mine
-                    else if (mainBase != null && closestMine.Value > 0)
-                    {
-                        Gather(unit, closestMine, mainBase);
+                        Gather(unit, LeastOccupiedOrClosestMine(), mainBase);
                     }
                 }
             }
@@ -585,25 +747,39 @@ namespace GDD3400_PlanningAgent_Lib
             // Process the Base
             foreach (UnitSprite unit in myBases)
             {
-                if (unit.CurrentAction == UnitAction.IDLE && myPeons.Count < 10
-                    && Gold > Constants.COST[(int)UnitType.PEON])
+                if (myBarracks.Count < 2)
                 {
-                    Train(unit, UnitType.PEON);
+                    if (unit.CurrentAction == UnitAction.IDLE && myPeons.Count < 8
+                        && Gold > Constants.COST[(int)UnitType.PEON])
+                    {
+                        Train(unit, UnitType.PEON);
+                    }
+                }
+                else
+                {
+                    if (unit.CurrentAction == UnitAction.IDLE && myPeons.Count < 12
+                        && Gold > Constants.COST[(int)UnitType.PEON])
+                    {
+                        Train(unit, UnitType.PEON);
+                    }
                 }
             }
         }
 
         private void ProcessBarracks()
         {
-            // Process the Barracks
-            foreach (UnitSprite unit in myBarracks)
-            {
-                if (unit.CurrentAction == UnitAction.IDLE
-                    && (mySoldiers.Count < 10
-                    || mySoldiers.Count <= enemySoldiers.Count * 1.5)
-                    && Gold > Constants.COST[(int)UnitType.SOLDIER])
+            if (myBarracks.Count > 1)
+            { 
+                // only train soldiers if we have at least two barracks
+                foreach (UnitSprite unit in myBarracks)
                 {
-                    Train(unit, UnitType.SOLDIER);
+                    if (unit.CurrentAction == UnitAction.IDLE
+                        && (mySoldiers.Count < 10
+                        || mySoldiers.Count <= enemySoldiers.Count * 1.5)
+                        && Gold > Constants.COST[(int)UnitType.SOLDIER])
+                    {
+                        Train(unit, UnitType.SOLDIER);
+                    }
                 }
             }
         }
@@ -613,15 +789,22 @@ namespace GDD3400_PlanningAgent_Lib
             // For each soldier, determine what they should attack
             foreach (UnitSprite unit in mySoldiers)
             {
+                // check for zerg rush
+                if (enemyUnitAnalysis[Tools.WorldToGrid(mainBase.Position).X, Tools.WorldToGrid(mainBase.Position).Y] > .5 && unit.CurrentAction != UnitAction.ATTACK)
+                {
+                    // attack with all units not currently attacking
+                    Attack(unit, FindClosestEnemyToBase(mainBase));
+                }
+                
                 if (unit.CurrentAction == UnitAction.IDLE)
                 {
                     if (enemySoldiers.Count > 0)
                     {
-                        Attack(unit, enemySoldiers[0]);
+                        Attack(unit, FindLowestInfluenceUnit(UnitType.SOLDIER));
                     }
                     else if (enemyPeons.Count > 0)
                     {
-                        Attack(unit, enemyPeons[0]);
+                        Attack(unit, FindLowestInfluenceUnit(UnitType.PEON));
                     }
                     else if (enemyBases.Count > 0)
                     {
@@ -640,164 +823,7 @@ namespace GDD3400_PlanningAgent_Lib
         }
 
         #endregion        
-
-        #region Passive Methods
-
-        private void ProcessPeonsPassive()
-        {
-            // For each peon
-            foreach (UnitSprite unit in myPeons)
-            {
-                if (unit.CurrentAction == UnitAction.IDLE)
-                {
-                    // Test Move
-                    //Move(unit, new Point(rand.Next(Constants.GRID_HEIGHT), rand.Next(Constants.GRID_WIDTH)));
-
-                    // If we have enough gold and need a barracks, build a barracks
-                    if (Gold >= Constants.COST[(int)UnitType.BARRACKS]
-                        && myBarracks.Count < 3)
-                    {
-                        // look for point with at least 3 occupied neighbors
-                        Point toBuild = FindCellWithOccupiedNeighbors(
-                            2, Constants.GRID_HEIGHT / 2 - 4,
-                            2, Constants.GRID_WIDTH / 2 - 6,
-                            3);
-                        Build(unit, toBuild, UnitType.BARRACKS);
-                    }
-                    // we dont need a refinery
-
-                    // Ohterwise, just mine
-                    else if (mainBase != null && closestMine.Value > 0)
-                    {
-                        Gather(unit, closestMine, mainBase);
-                    }
-                }
-            }
-        }
-
-        private void ProcessSoldiersPassive()
-        {
-
-        }
-
-        private void ProcessBarracksPassive()
-        {
-
-        }
-
-        private void ProcessBasesPassive()
-        {
-
-        }
-
-        #endregion
-
-        #region Defensive Methods
-
-        private void ProcessPeonsDefensive()
-        {
-
-        }
-
-        private void ProcessSoldiersDefensive()
-        {
-
-        }
-
-        private void ProcessBarracksDefensive()
-        {
-
-        }
-
-        private void ProcessBasesDefensive()
-        {
-
-        }
-
-        #endregion
-
-        #region Aggressive Methods
-
-        private void ProcessPeonsAggressive()
-        {
-
-        }
-
-        private void ProcessSoldiersAggressive()
-        {
-
-        }
-
-        private void ProcessBarracksAggressive()
-        {
-
-        }
-
-        private void ProcessBasesAggressive()
-        {
-
-        }
-
-        #endregion
-
-        #region DelegateMethods
-
-        // Actions.Attackpeon
-        void AttackPeon()
-        {
-
-            Console.WriteLine(">AttackPeon");
-        }
-
-        // Actions.AttackSoldier
-        void AttackSoldier()
-        {
-
-            Console.WriteLine(">AttackSoldier");
-        }
-
-        // Actions.AttackBuilding
-        protected void AttackBuilding()
-        {
-
-            Console.WriteLine(">AttackBuilding");
-        }
-
-        // Actions.TrainPeon
-        void TrainPeon()
-        {
-
-            Console.WriteLine(">TrainPeon");
-        }
-
-        // Actions.TrainSoldier
-        void TrainSoldier()
-        {
-
-            Console.WriteLine(">TrainSoldier");
-        }
-
-        // Actions.GatherGold
-        void GatherGold()
-        {
-
-            Console.WriteLine(">GatherGold");
-        }
-
-        // Actions.BuildBarracks
-        void BuildBarracks()
-        {
-            Console.WriteLine(">BuildBarracks");
-        }
-
-        // Actions.MovePeon
-        void MoveUnit()
-        {
-
-            Console.WriteLine(">MoveUnit");
-        }
-
-        #endregion
+        
 
     }
 }
