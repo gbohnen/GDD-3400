@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDD3400_RTS", "GDD3400_Pathfinding\GDD3400_Pathfinding\GDD3400_RTS.csproj", "{442F85D9-6CF0-4CE3-BD03-19AE7EAD8D60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDD3400_RTS_Content", "GDD3400_Pathfinding\GDD3400_PathfindingContent\GDD3400_RTS_Content.contentproj", "{F90B6645-410E-45E6-94F9-3880F1AAB06E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDD3400_PlanningAgent_Lib", "GDD3400_PlanningAgent_Lib\GDD3400_PlanningAgent_Lib.csproj", "{FE8067D9-EF24-4D1A-905F-44090101D89F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{442F85D9-6CF0-4CE3-BD03-19AE7EAD8D60}.Debug|x86.ActiveCfg = Debug|x86
+		{442F85D9-6CF0-4CE3-BD03-19AE7EAD8D60}.Debug|x86.Build.0 = Debug|x86
+		{442F85D9-6CF0-4CE3-BD03-19AE7EAD8D60}.Release|x86.ActiveCfg = Release|x86
+		{442F85D9-6CF0-4CE3-BD03-19AE7EAD8D60}.Release|x86.Build.0 = Release|x86
+		{F90B6645-410E-45E6-94F9-3880F1AAB06E}.Debug|x86.ActiveCfg = Debug|x86
+		{F90B6645-410E-45E6-94F9-3880F1AAB06E}.Release|x86.ActiveCfg = Release|x86
+		{FE8067D9-EF24-4D1A-905F-44090101D89F}.Debug|x86.ActiveCfg = Debug|x86
+		{FE8067D9-EF24-4D1A-905F-44090101D89F}.Debug|x86.Build.0 = Debug|x86
+		{FE8067D9-EF24-4D1A-905F-44090101D89F}.Release|x86.ActiveCfg = Release|x86
+		{FE8067D9-EF24-4D1A-905F-44090101D89F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
