@@ -768,18 +768,16 @@ namespace GDD3400_PlanningAgent_Lib
 
         private void ProcessBarracks()
         {
-            if (myBarracks.Count > 1)
-            { 
-                // only train soldiers if we have at least two barracks
-                foreach (UnitSprite unit in myBarracks)
+
+            // only train soldiers if we have at least two barracks
+            foreach (UnitSprite unit in myBarracks)
+            {
+                if (unit.CurrentAction == UnitAction.IDLE
+                    && (mySoldiers.Count < 10
+                    || mySoldiers.Count <= enemySoldiers.Count * 1.5)
+                    && Gold > Constants.COST[(int)UnitType.SOLDIER])
                 {
-                    if (unit.CurrentAction == UnitAction.IDLE
-                        && (mySoldiers.Count < 10
-                        || mySoldiers.Count <= enemySoldiers.Count * 1.5)
-                        && Gold > Constants.COST[(int)UnitType.SOLDIER])
-                    {
-                        Train(unit, UnitType.SOLDIER);
-                    }
+                    Train(unit, UnitType.SOLDIER);
                 }
             }
         }
